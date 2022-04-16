@@ -16,11 +16,11 @@ def run_pipeline(dummy=True, data_path='data', output_path='results'):
         run_etl(dummy=False, data_path=data_path)
 
     logger.info("Building Model")
-    run_model_build
+    model = run_model_build
     logger.info("Model build complete")
 
     logger.info("Evaluating model performance")
-    run_model_evaluation(output_path=output_path)
+    run_model_evaluation(model=model, output_path=output_path)
     logger.info(f'Model evaluation output to path={output_path}')
 
 
