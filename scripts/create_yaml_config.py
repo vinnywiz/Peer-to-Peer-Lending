@@ -92,7 +92,13 @@ config_string = '''listing_columns:
 - dti_wprosper_loan
 - CoBorrowerApplication
 - CombinedDtiwProsperLoan
-- CombinedStatedMonthlyIncome'''
+- CombinedStatedMonthlyIncome
+use_dummy:
+- True
+year_start:
+- 2021
+year_end:
+- 2021'''
 
 with open('..\\p2p_lend\\etl\\column_config.yaml', 'w') as f:
     f.write(config_string)
