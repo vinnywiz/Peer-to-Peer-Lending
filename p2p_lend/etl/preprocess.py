@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import os
 import glob
 import yaml
@@ -31,8 +32,71 @@ def preprocess_data():
     else:
         listing_df = read_files_to_pandas(listing_files)
     loan_df = read_files_to_pandas(loan_files)
-    return listing_df, loan_df
+    # Join loan & listings
+    loan_listing_df = join_listings_and_loans(loan_df, listing_df)
+    # Data type conversion Imputing variables
+    cleaned_df = clean_loan_listings_data(loan_listing_df)
+    # write to file
+    write_file(use_dummy, cleaned_df, file_name=f'loan_listing_cleaned.csv')
+    return listing_df, loan_df, loan_listing_df#, cleaned_df
 
+def write_file(use_dummy, df, file_name=f'loan_listing_cleaned.csv'):
+    if use_dummy:
+        file_path = f'..\\..\\data\\dummy_data\\' + file_name
+        df.to_csv(file_path, index=False)
+    else:
+        file_path = f'..\\..\\data\\real_data\\listings\\' + file_name
+        df.to_csv(file_path, index=False)
+    return 'Success'
+
+def join_listings_and_loans(loan_df, listing_df):
+    '''
+    Merge the two datasets
+    '''
+    loan_listing_df = pd.merge(loan_df, listing_df,  
+        how='left', 
+        left_on=['origination_date','amount_borrowed','borrower_rate','prosper_rating','term','co_borrower_application'],         
+        right_on = ['loan_origination_date','amount_funded','borrower_rate','prosper_rating','listing_term','CoBorrowerApplication'])
+    # Find Valid Loans
+    loan_listing_valid_df = loan_listing_df.groupby('loan_number')['origination_date'].count().reset_index()
+    loan_listing_valid_df['validity'] = np.where(loan_listing_valid_df['origination_date']>1, 'Invalid', 'Valid')
+    loan_listing_valid_df = loan_listing_valid_df[['loan_number','validity']]
+    # Filter to valid loans
+    loan_listing_valid_df = pd.merge(loan_listing_df,loan_listing_valid_df, on='loan_number', how='inner')
+    loan_listing_valid_df = loan_listing_valid_df[loan_listing_valid_df['validity']=='Valid']
+    return loan_listing_valid_df
+
+def clean_loan_listings_data(df):
+    # define bad loan
+    df.loc[((df['loan_status_description']=='CHARGEOFF')),'bad_loan'] = 1
+    df.loc[((df['loan_status_description']=='DEFAULTED')),'bad_loan'] = 1
+    df.loc[((df['loan_status_description']=='CANCELLED')),'bad_loan'] = 1
+    df.loc[((df['loan_status_description']=='COMPLETED')),'bad_loan'] = 0
+    df.loc[((df['loan_status_description']=='CURRENT')),'bad_loan'] = 0
+    # convert date columns to datetime
+    df['listing_start_date'] = pd.to_datetime(df['listing_start_date'], format="%Y-%m-%d %H:%M:%S")
+    df['listing_end_date'] = pd.to_datetime(df['listing_end_date'], format="%Y-%m-%d %H:%M:%S")
+    df['TUFicoDate'] = pd.to_datetime(df['TUFicoDate'], format="%Y-%m-%d %H:%M:%S")
+    # stated_monthly_income
+    df['stated_monthly_income'].fillna(df['stated_monthly_income'].median(), inplace=True)
+    # listing monthly payment
+    df['listing_monthly_payment'].fillna(df['listing_monthly_payment'].median(), inplace=True)
+    # occupation
+    df['occupation'].fillna(df['occupation'].mode()[0], inplace=True)
+    # months employed
+    df['months_employed'].fillna(df['months_employed'].median(), inplace=True)
+    # prosper score
+    df['prosper_score'].fillna(df['prosper_score'].mode()[0], inplace=True)
+    # select rows where date is not nan
+    df = df[df['listing_start_date'].notna()]
+    df = df[df['listing_end_date'].notna()]
+    # borrower state
+    df['borrower_state'].fillna(df['borrower_state'].mode()[0], inplace=True)
+    df['loan_status'] = np.where(df['loan_status_description']=='COMPLETED', 1, 0)
+    df.drop('loan_status_description', axis=1, inplace=True) # drop duplicated column
+    # renaming some columns
+    df.rename(columns={'listing_monthly_payment': 'monthly_payment', 'stated_monthly_income': 'monthly_income'}, inplace=True)
+    return df
 
 def read_files_to_pandas(filenames, cols = []):
     lis =[]
