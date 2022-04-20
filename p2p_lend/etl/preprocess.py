@@ -42,10 +42,10 @@ def preprocess_data():
 
 def write_file(use_dummy, df, file_name=f'loan_listing_cleaned.csv'):
     if use_dummy:
-        file_path = f'..\\..\\data\\dummy_data\\' + file_name
+        file_path = f'..\\..\\data\\dummy_data\\preprocessed_data\\' + file_name
         df.to_csv(file_path, index=False)
     else:
-        file_path = f'..\\..\\data\\real_data\\listings\\' + file_name
+        file_path = f'..\\..\\data\\real_data\\preprocessed_data\\' + file_name
         df.to_csv(file_path, index=False)
     return 'Success'
 
