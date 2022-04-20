@@ -94,6 +94,7 @@ listing_columns:
 - CombinedDtiwProsperLoan
 - CombinedStatedMonthlyIncome
 use_dummy: True
+data_path: 'data'
 filter_listings: True
-year_start: 2020
+year_start: 2015
 year_end: 2021

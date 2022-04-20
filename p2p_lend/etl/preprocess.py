@@ -4,21 +4,25 @@ import os
 import glob
 import yaml
 
-def preprocess_data():
+def preprocess_data(use_dummy=None, data_path=None):
     # Get config variables
     config = read_yaml_config_file()
-    use_dummy=bool(config['use_dummy'])
+    if use_dummy is None:
+        use_dummy=bool(config['use_dummy'])
     filter_listings=bool(config['filter_listings'])
     year_start = int(config['year_start'])
     year_end = int(config['year_end'])
     years = [i for i in range(year_start, year_end+1)]
+    if data_path is None:
+        data_path = config['data_path']
+    print(use_dummy)
     # Set data path
     if use_dummy == True:
-        listing_path = f'..\\..\\data\\dummy_data\\listings\\'
-        loan_path = f'..\\..\\data\\dummy_data\\loans\\'
+        listing_path = os.path.join(data_path, 'dummy_data','listings')
+        loan_path = os.path.join(data_path, 'dummy_data','loans')
     else:
-        listing_path = f'..\\..\\data\\real_data\\listings\\'
-        loan_path = f'..\\..\\data\\real_data\\loans\\'
+        listing_path = os.path.join(data_path, 'real_data','listings')
+        loan_path = os.path.join(data_path, 'real_data','loans')
     listing_files = glob.glob(os.path.join(listing_path, "*.*"))
     loan_files = glob.glob(os.path.join(loan_path, "*.*"))
     if not use_dummy:
@@ -37,20 +41,20 @@ def preprocess_data():
     # Data type conversion Imputing variables
     cleaned_df = clean_loan_listings_data(loan_listing_df)
     # write to file
-    write_file(use_dummy, cleaned_df, file_name=f'loan_listing_cleaned.csv')
-    return listing_df, loan_df, loan_listing_df#, cleaned_df
+    write_file(use_dummy, cleaned_df, data_path, file_name=f'loan_listing_cleaned.csv')
+    return listing_df, loan_df, cleaned_df#, cleaned_df
 
-def write_file(use_dummy, df, file_name=f'loan_listing_cleaned.csv'):
+def write_file(use_dummy, df, data_path, file_name=f'loan_listing_cleaned.csv'):
     if use_dummy:
-        file_path = f'..\\..\\data\\dummy_data\\preprocessed_data\\' + file_name
+        file_path = os.path.join(data_path, 'dummy_data','processed_data', file_name)
         df.to_csv(file_path, index=False)
     else:
-        file_path = f'..\\..\\data\\real_data\\preprocessed_data\\' + file_name
+        file_path = os.path.join(data_path, 'real_data','processed_data', file_name)
         df.to_csv(file_path, index=False)
     return 'Success'
 
 def join_listings_and_loans(loan_df, listing_df):
-    '''
+    '''`
     Merge the two datasets
     '''
     loan_listing_df = pd.merge(loan_df, listing_df,  
@@ -116,6 +120,7 @@ def read_files_to_pandas(filenames, cols = []):
     return all_files_df
 
 def read_yaml_config_file():
-    with open('column_config.yaml') as f:
+    yaml_path = os.path.join('p2p_lend','etl', 'column_config.yaml')
+    with open(yaml_path) as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
     return config
