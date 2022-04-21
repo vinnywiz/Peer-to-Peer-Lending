@@ -5,13 +5,10 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-MODEL_TYPES = [
-    'Logistic',
-    'RandomForest',
-    'XGBoost'
-]
+import warnings
+warnings.filterwarnings("ignore")
 
-def run_pipeline(dummy=True, apply_smote=True, model_type='XGBoost',data_path='data', output_path='results'):
+def run_pipeline(dummy=True, apply_smote=False, model_type='Logistic',data_path='data', output_path='results'):
 
     if dummy:
         logger.info("Running ETL with dummy data")
