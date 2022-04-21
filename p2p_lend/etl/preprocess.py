@@ -15,7 +15,6 @@ def preprocess_data(use_dummy=None, data_path=None):
     years = [i for i in range(year_start, year_end+1)]
     if data_path is None:
         data_path = config['data_path']
-    print(use_dummy)
     # Set data path
     if use_dummy == True:
         listing_path = os.path.join(data_path, 'dummy_data','listings')
@@ -97,9 +96,13 @@ def clean_loan_listings_data(df):
     # borrower state
     df['borrower_state'].fillna(df['borrower_state'].mode()[0], inplace=True)
     df['loan_status'] = np.where(df['loan_status_description']=='COMPLETED', 1, 0)
-    df.drop('loan_status_description', axis=1, inplace=True) # drop duplicated column
     # renaming some columns
     df.rename(columns={'listing_monthly_payment': 'monthly_payment', 'stated_monthly_income': 'monthly_income'}, inplace=True)
+    # Feature Engineering
+    df['EMI'] = df['amount_borrowed'] / df['term']
+    df['balance_income'] = df['monthly_income'] - df['EMI']
+    #df['balance_income_log'] = np.log(df['balance_income'])
+    df.drop('loan_status_description', axis=1, inplace=True) # drop duplicated column
     return df
 
 def read_files_to_pandas(filenames, cols = []):
@@ -110,7 +113,8 @@ def read_files_to_pandas(filenames, cols = []):
             cols_valid = []
             for col in cols:
                 if col not in df.columns:
-                    print(col)
+                    continue
+                    #print(col)
                 else:
                     cols_valid.append(col)
             df = df[cols_valid]

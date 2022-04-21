@@ -6,7 +6,7 @@ EVALUATION_TYPES = [
 ]
 
 
-def run_model_evaluation(model, output_path, evaluation_type="explainability"):
+def run_model_evaluation(model, output_path,use_dummy=None, evaluation_type="explainability"):
 
     assert(evaluation_type in EVALUATION_TYPES)
 

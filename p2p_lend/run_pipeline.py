@@ -5,8 +5,13 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+MODEL_TYPES = [
+    'Logistic',
+    'RandomForest',
+    'XGBoost'
+]
 
-def run_pipeline(dummy=True, data_path='data', output_path='results'):
+def run_pipeline(dummy=True, apply_smote=True, model_type='XGBoost',data_path='data', output_path='results'):
 
     if dummy:
         logger.info("Running ETL with dummy data")
@@ -16,14 +21,9 @@ def run_pipeline(dummy=True, data_path='data', output_path='results'):
         run_etl(dummy=False, data_path=data_path)
 
     logger.info("Building Model")
-    model = run_model_build
+    model = run_model_build(use_dummy= dummy,apply_smote=apply_smote, model_type=model_type)
     logger.info("Model build complete")
 
     logger.info("Evaluating model performance")
-    run_model_evaluation(model=model, output_path=output_path)
+    run_model_evaluation(use_dummy=dummy, model=model, output_path=output_path)
     logger.info(f'Model evaluation output to path={output_path}')
-
-
-
-
-

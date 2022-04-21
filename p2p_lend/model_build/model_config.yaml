@@ -1,0 +1,20 @@
+model_X_columns:
+- amount_borrowed
+- borrower_rate
+- term
+- co_borrower_application
+- funding_threshold
+- monthly_payment
+- prosper_score
+- monthly_income
+- months_employed
+- borrower_state
+- TUFicoRange
+- prior_prosper_loans
+- EMI
+- balance_income
+- loan_status
+model_y_column: 'loan_status'
+use_dummy: False
+apply_smote: False
+data_path: 'data'

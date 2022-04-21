@@ -93,8 +93,8 @@ listing_columns:
 - CoBorrowerApplication
 - CombinedDtiwProsperLoan
 - CombinedStatedMonthlyIncome
-use_dummy: True
+use_dummy: False
 data_path: 'data'
 filter_listings: True
-year_start: 2015
+year_start: 2021
 year_end: 2021
