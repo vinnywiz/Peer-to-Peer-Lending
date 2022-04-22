@@ -2,7 +2,7 @@
 
 <style>
     p {align: center;
-    font-size:30px}
+    font-size:30px};
 </style>
 
 <p> Peer-to-Peer-Lending: Predicting Bad Loans with Machine Learning </p>
