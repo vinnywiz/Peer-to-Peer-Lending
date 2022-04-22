@@ -40,6 +40,7 @@ def run_model_build(model_type="Logistic", data_path=None, apply_smote=None, use
     write_data_frame_for_analysis(processed_df, use_dummy=use_dummy, data_path=data_path)
     # Train Test Split data
     X = processed_df.drop(model_y_column, axis=1).copy()
+    X_features = X.columns
     y = processed_df[model_y_column].copy()
     #print(X.columns)
     #print(pd.DataFrame(y).columns)
@@ -56,7 +57,7 @@ def run_model_build(model_type="Logistic", data_path=None, apply_smote=None, use
     #print(X_train.shape, y_train.shape)
     sk_model = run_model(X_train, y_train,X_test, y_test, model_type=model_type)
     # Save Model
-    save_trained_model(sk_model=sk_model, X_test=X_test, y_test=y_test, data_path=data_path, use_dummy=use_dummy)
+    save_trained_model(sk_model=sk_model, X_test=X_test, y_test=y_test, data_path=data_path, use_dummy=use_dummy, X_features = X_features)
     return sk_model
 
 def resample_using_SMOTE(X_train, y_train):
@@ -74,13 +75,15 @@ def resample_using_SMOTE(X_train, y_train):
     X_smt, y_smt = pipeline.fit_resample(X_train, y_train)
     return X_smt, y_smt
 
-def save_trained_model(sk_model,X_test, y_test, data_path=None, use_dummy=None):
+def save_trained_model(sk_model,X_test, y_test, data_path=None, use_dummy=None, X_features=None):
     if use_dummy:
         file_path = os.path.join(data_path, 'dummy_data','model')
     else:
         file_path = os.path.join(data_path, 'real_data','model')
     with open(os.path.join(file_path,'trained_model.pkl'), 'wb') as f:
         pickle.dump(sk_model, f)
+    X_test = pd.DataFrame(X_test)
+    X_test.columns= X_features
     pd.DataFrame(X_test).to_csv(os.path.join(file_path, 'X_test.csv'), index=False)
     pd.DataFrame(y_test).to_csv(os.path.join(file_path, 'y_test.csv'), index=False)
     return None
