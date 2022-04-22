@@ -1,14 +1,19 @@
 # Capstone Project Team Falcon
 
-# <center> Peer-to-Peer-Lending: Predicting Bad Loans with Machine Learning </center>
+# Peer-to-Peer-Lending: Predicting Bad Loans with Machine Learning
 
 
+##### Table of Contents 
+1. [Introduction](#introduction)
+   a. [Background](#background)
+2. [Data Acquisition](#dataacquisition)
+   
 
-## Table of Contents
-# 1.	Introduction 
-### a. Background 
+
+# 1.	Introduction <a name="introduction"></a>
+### a. Background <a name="background"></a>
 Peer-to-peer lending is an innovative FinTech product that disrupts the entire banking industry. Traditionally, banks play an intermediary role between borrowers and lenders. Banks collect money from lenders as deposits or savings at a lower rate, then issue loans to borrowers at a higher rate. To protect lenders’ money, banks execute the professional due diligence that distinguishes good borrowers from bad ones. Recently, peer-to-peer lending fintech firms invented a platform that connects lenders with borrowers without these intermediary banks. It gives an opportunity for lenders to earn more returns and for borrowers to get loans in a cheaper and quicker way. 
-### b.Audience and Motivation 
+### b. Audience and Motivation <a name="dataacquisition"></a>
 Even though peer-to-peer lending platforms give tremendous opportunities to both parties, the solution itself has its own drawbacks. The professional due diligence work is on investors' shoulders.  Not all investors have the professional knowledge like banks to distinguish good borrowers from bad borrowers. Investors are regular people who want to earn a high return on their loans.  If they invest in a bad loan, they would lose their money.  
 Prosper Lending enables investors to browse consumer loan applications containing the applicants loan details, credit history, etc in order to make determinations as to which loans to fund. Loans from applicants deemed at higher risk of default, such as those with lower FICO scores, will typically carry higher interest rates and therefore the potential to yield a higher return on investment for the investor. Alternatively, lower risk of default loans will usually carry lower interest rates. Therefore, a Machine Learning model that could accurately predict the default risk of a loan using the available data on Prosper Lending could help investors maximize their investment returns by identifying the loans worth investing. 
 
