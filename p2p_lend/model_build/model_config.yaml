@@ -13,8 +13,9 @@ model_X_columns:
 - prior_prosper_loans
 - EMI
 - balance_income
-- loan_status
-model_y_column: 'loan_status'
+- occupation
+- bad_loan
+model_y_column: 'bad_loan'
 use_dummy: False
 apply_smote: False
 data_path: 'data'

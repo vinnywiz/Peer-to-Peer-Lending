@@ -41,6 +41,7 @@ def preprocess_data(use_dummy=None, data_path=None):
     cleaned_df = clean_loan_listings_data(loan_listing_df)
     # write to file
     write_file(use_dummy, cleaned_df, data_path, file_name=f'loan_listing_cleaned.csv')
+    print('Writing Processed Data Complete')
     return listing_df, loan_df, cleaned_df#, cleaned_df
 
 def write_file(use_dummy, df, data_path, file_name=f'loan_listing_cleaned.csv'):
@@ -56,6 +57,7 @@ def join_listings_and_loans(loan_df, listing_df):
     '''`
     Merge the two datasets
     '''
+    listing_df['amount_funded'] = listing_df['amount_funded'].astype('int64')
     loan_listing_df = pd.merge(loan_df, listing_df,  
         how='left', 
         left_on=['origination_date','amount_borrowed','borrower_rate','prosper_rating','term','co_borrower_application'],         
@@ -95,7 +97,7 @@ def clean_loan_listings_data(df):
     df = df[df['listing_end_date'].notna()]
     # borrower state
     df['borrower_state'].fillna(df['borrower_state'].mode()[0], inplace=True)
-    df['loan_status'] = np.where(df['loan_status_description']=='COMPLETED', 1, 0)
+    df['loan_status'] = np.where(df['loan_status_description']=='DEFAULTED', 1, 0)
     # renaming some columns
     df.rename(columns={'listing_monthly_payment': 'monthly_payment', 'stated_monthly_income': 'monthly_income'}, inplace=True)
     # Feature Engineering

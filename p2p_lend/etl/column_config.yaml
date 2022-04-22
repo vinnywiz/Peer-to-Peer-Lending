@@ -96,5 +96,5 @@ listing_columns:
 use_dummy: False
 data_path: 'data'
 filter_listings: True
-year_start: 2021
+year_start: 2015
 year_end: 2021
