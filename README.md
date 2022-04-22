@@ -2,6 +2,7 @@
 
 # Peer-to-Peer-Lending: Predicting Bad Loans with Machine Learning
 
+## Table of Contents
 <!-- no toc -->
 - [1.	Introduction](#1introduction)
     - [a. Background](#a-background)
