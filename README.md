@@ -1,8 +1,8 @@
 # Capstone project Team Falcon
 
-<p align="center">
+<H2> 
     Peer-to-Peer-Lending: Predicting Bad Loans with Machine Learning
-</p>
+</H2>
 
 ## Table of Contents
 # 1.	Introduction 
