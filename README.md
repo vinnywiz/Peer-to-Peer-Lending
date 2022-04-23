@@ -32,17 +32,20 @@
 Peer-to-peer lending is an innovative FinTech product that disrupts the entire banking industry. Traditionally, banks play an intermediary role between borrowers and lenders. Banks collect money from lenders as deposits or savings at a lower rate, then issue loans to borrowers at a higher rate. To protect lenders’ money, banks execute the professional due diligence that distinguishes good borrowers from bad ones. Recently, peer-to-peer lending fintech firms invented a platform that connects lenders with borrowers without these intermediary banks. It gives an opportunity for lenders to earn more returns and for borrowers to get loans in a cheaper and quicker way. 
 ### b. Audience and Motivation 
 Even though peer-to-peer lending platforms give tremendous opportunities to both parties, the solution itself has its own drawbacks. The professional due diligence work is on investors' shoulders.  Not all investors have the professional knowledge like banks to distinguish good borrowers from bad borrowers. Investors are regular people who want to earn a high return on their loans.  If they invest in a bad loan, they would lose their money.  
-Prosper Lending enables investors to browse consumer loan applications containing the applicants loan details, credit history, etc in order to make determinations as to which loans to fund. Loans from applicants deemed at higher risk of default, such as those with lower FICO scores, will typically carry higher interest rates and therefore the potential to yield a higher return on investment for the investor. Alternatively, lower risk of default loans will usually carry lower interest rates. Therefore, a Machine Learning model that could accurately predict the default risk of a loan using the available data on Prosper Lending could help investors maximize their investment returns by identifying the loans worth investing. Additionaly, it would give opportunities to diversify portfolio of investors with high return with high risk and low risk with low returns. 
+
+Prosper Lending enables investors to browse consumer loan applications containing the applicants loan details, credit history, etc in order to make determinations as to which loans to fund. Loans from applicants deemed at higher risk of default, such as those with lower FICO scores, will typically carry higher interest rates and therefore the potential to yield a higher return on investment for the investor. Alternatively, lower risk of default loans will usually carry lower interest rates. Therefore, a Machine Learning model that could accurately predict the default risk of a loan using the available data on Prosper Lending could help investors maximize their investment returns by identifying the loans worth investing. 
 
 # 2.	Data Acquisition 
 ### a. Data source
-For our initial datasets, we use two separate datasets from [Prosper Marketplace, Inc](https://www.prosper.com). The first data is the Listing data.  The listing data includes information about all applicants. It includes personal features that can estimate the credit quality of borrowers. The are 886 qualitative and quantitative features per customer. The second data is the loan data.  The loan data includes actual loan information about applicants whose listings are approved and who received a loan from the peer-to-peer platform. The loan data has information about loan characteristics such as loan interest rate, loan amount, loan maturities, principal payments, balance, etc. Additionally, the loan data include the loan status if the loan is defaulted or not. Some of these features in the data are only relevant after loan issuance and therefore not available to investors at the time of investing. We used the [Prosper Data Dictionary](https://www.prosper.com/Downloads/Services/Documentation/ProsperDataExport_Details.html) to better undertsnad the features available to investors.
+For our initial datasets, we use two separate datasets from [Prosper Marketplace, Inc](https://www.prosper.com). The first data is the Listing data.  The listing data includes information about all applicants. It includes personal features that can estimate the credit quality of borrowers. The are 886 qualitative and quantitative features per customer. 
+
+The second data is the loan data.  The loan data includes actual loan information about applicants whose listings are approved and who received a loan from the peer-to-peer platform. The loan data has information about loan characteristics such as loan interest rate, loan amount, loan maturities, principal payments, balance, etc. Additionally, the loan data include the loan status if the loan is a bad loan (defaulted) or not. Some of these features in the data are only relevant after loan issuance and therefore not available to investors at the time of investing. We used the [Prosper Data Dictionary](https://www.prosper.com/Downloads/Services/Documentation/ProsperDataExport_Details.html) to better undertsnad the features available to investors.
 
 # 3.	Methodology 
 ### a.	Data Preprocessing 
-To begin, we executed a simple exploratory analysis using the data dictionary to find unique key identifiers to merge the data. Both datasets have their unique key identifiers however, there is no direct connection between the unique identifiers. We decided to merge the two datasets with 6 common variables (loan_origination_date, amount_borrowed, borrower_rate, prosper_rating, term, and co_borrower_application). We kept only unique merged data as there might be two same borrowers who requested the same amount of loan and received the same loan interest and maturity. After merging we had more that 80% unique rows.
+To begin, we executed a simple exploratory analysis using the data dictionary to find unique key identifiers to merge the data. Both datasets have their unique key identifiers however, there is no direct connection between the unique identifiers. We decided to merge the two datasets with 6 common variables *(loan_origination_date, amount_borrowed, borrower_rate, prosper_rating, term, and co_borrower_application)*. We kept only uniquely merged rows as there might be two same borrowers who requested the same amount of loan and received the same loan interest and maturity. After merging we had more that 80% unique rows.
 
- After merging the data, we dropped some variables based on these conditions;
+ Some features in the data was dropped some based on these conditions;
   - variables with >50% of missing data 
   - variables that would introduce data leakage (eg age_in_months)
   - variables unavailable until loan issuance (eg days_past_due, late_fees_paid)
@@ -112,34 +115,41 @@ As we stated earlier, the dummy classifier was to just have a baseline to compar
 ### Logistic regression 
 Of all the true bad-loans the logistic regression model identified 68% of them and when the loans are predicted to be bad they are bad 92% of the time. By comparing with our baseline model we saw an improvement in the model performance. An F1-score of 78% was observed for bad loans. The model had an accuracy of 68%.
 
-![image](https://user-images.githubusercontent.com/86815494/164074647-c8cc1a54-3131-4d91-b648-3c1c15b62591.png)
-![image](https://user-images.githubusercontent.com/86815494/164074679-85f01aef-8403-4098-812b-20b3e8566281.png)
+
 
 
 ### Random Forest
 Our Random Forest model identified 70% of true bad-loans with a 92% precision. There was a slight improvement in the model accuracy (69%). We also observed a slight improvement in the F1-score (79%). The Random Forest model seems to be the best performing model so far.
 
-![image](https://user-images.githubusercontent.com/86815494/164074753-78550b0b-fbd2-4ee3-a654-8c396564bfe6.png)
-![image](https://user-images.githubusercontent.com/86815494/164074774-40fc4eae-030f-420e-a854-da4c2557d63a.png)
+
 
 ### XGBoost Classifier
 The XGBoost model reported an accuracy of 71% (best performing model out of the lot). Of all the true bad-loans this model identified 72% of them and when the loans are predicted to be bad they are bad 92% of the time. The harmonic-mean of the Precision and Recall was 81% of bad-loans. We therefore concluded that the XGBoost is our best performing model to do a model explainability.
 
-![image](https://user-images.githubusercontent.com/86815494/164074816-5db724bc-2f91-41a8-9fa0-f4cbc967133a.png)
-![image](https://user-images.githubusercontent.com/86815494/164074843-0915d4de-9266-47f9-a5c5-fb6cf7e0b6b5.png)
+![image](results/output/classification_report.png)
 
  # 5.   Model Explainability (SHapley Additive exPlanations - SHAP)
 We used the SHAP Python package to interpret our model. SHAP is an increasingly popular method used for interpretable machine learning.
 ### Feature Contributions (force plot)
 We used a force plot to summarize how each feature contributes to an individual prediction. (insert force plot image and add explanation)
 
+![image](results/output/Local_Explanability_Listing_Id_0.png)
+![image](results/output/Local_Explanability_Listing_Id_1.png)
+![image](results/output/Local_Explanability_Listing_Id_2.png)
+![image](results/output/Local_Explanability_Listing_Id_3.png)
+![image](results/output/Local_Explanability_Listing_Id_4.png)
+
 ### Global Explanations and Feature Importance
 We put local explanations described above together to get a **global explanation**. And because of the axiomatic assumptions of SHAP, global SHAP explanations can be more reliable that other measures. (insert global plot image and add explanation)
+
+![image](results/output/global_bar_plot.png)
+![image](results/output/global_bee_plot.png)
+
 
 # 6.	Conclusion and Future Work 
 Predicting the occurrences of loan default in a peer-to-peer lending platform is crucial and challenging task. More accurate prediction models would be highly beneficial since the failure of a peer-to-peer lending platform could trigger a series of financial risks. Our project shows that machine learning methods have broad application prospects in the prediction of P2P loan default.
 
-For future work, we would want to deploy our model and have a real-time machine learning predictions. Futhermore, we plan to include a macro econokmic factors that highly affect the loan status. This would increase the performance of the current machine learning model. 
+For future work, we would want to deploy our model and have a real-time machine learning predictions
 
 # 7.    Refrences 
 Xu, J., Lu, Z. & Xie, Y. Loan default prediction of Chinese P2P market: a machine learning methodology. Sci Rep 11, 18759 (2021). https://doi.org/10.1038/s41598-021-98361-6
@@ -154,4 +164,4 @@ Brownlee, J., 2022. SMOTE for Imbalanced Classification with Python. [online] Ma
 
 Imbalanced-learn.org. 2022. SMOTE — Version 0.9.0. [online] Available at: <https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.SMOTE.html> [Accessed 3 April 2022].
 
-
+Shap.readthedocs.io. 2018. Welcome to the SHAP documentation — SHAP latest documentation. [online] Available at: <https://shap.readthedocs.io/en/latest/index.html> [Accessed 10 April 2022].
