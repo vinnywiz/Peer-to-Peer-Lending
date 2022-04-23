@@ -150,7 +150,7 @@ We put local explanations described above together to get a **global explanation
 # 6.	Conclusion and Future Work 
 Predicting the occurrences of loan default in a peer-to-peer lending platform is crucial and challenging task. More accurate prediction models would be highly beneficial since the failure of a peer-to-peer lending platform could trigger a series of financial risks. Our project shows that machine learning methods have broad application prospects in the prediction of P2P loan default.
 
-For future work, we would want to deploy our model and have a real-time machine learning predictions. Futhermore, we plan to include a macro econokmic factors (Inflation, unemployment rate, GDP etc) that highly affect the loan status. This would increase the performance of the current machine learning model.
+For future work, we would want to deploy our model and have a real-time machine learning predictions. Futhermore, we plan to include a macro economic factors (Inflation, unemployment rate, GDP etc) that highly affect the loan status. This would increase the performance of the current machine learning model.
 
 # 7.    Refrences 
 Xu, J., Lu, Z. & Xie, Y. Loan default prediction of Chinese P2P market: a machine learning methodology. Sci Rep 11, 18759 (2021). https://doi.org/10.1038/s41598-021-98361-6
