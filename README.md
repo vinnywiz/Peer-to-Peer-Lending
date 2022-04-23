@@ -68,8 +68,9 @@ To avoid multicollinearity in the data, both numeric and categorial variables ex
 We use the Synthetic Minority Oversampling Technique (SMOTE), which is a widely adopted approach, to address the class imbalance dataset. SMOTE uses bootstrapping and k-nearest neighnors to construct new minority class instances by transforming data based on feature space (rather than data space) similarities from minority samples. SMOTE performs a combination of oversampling and undersampling to construct a balanced dataset.
 
 For our puposes we oversmapled the minority class to have 10% the number of examples of the majority class. We then used random undersampling to reduce the number of examples in the majority class to have 80% more than the minority class. Ratios are what works best for your data. We believe this ratio works best for us. As shown below we successfully generated a balanced dataset using smote.
-(*** add image)
-![image](https://user-images.githubusercontent.com/86815494/164077554-686aa158-50af-4e2d-a786-be5c4e3da62a.png) 
+
+Visualizing the imbalanced data
+
 ![image](https://user-images.githubusercontent.com/86815494/164077567-3fcfddd5-946a-421a-b243-3df151d6571b.png)
 
 ### d.	Feature Engineering
@@ -79,6 +80,8 @@ We created two new features EMI (Equated Monthly Installment) and Balance_Income
 
 *EMI = amount_borrowed / term*
 
+We visualize the distribution of the newly created feature 'EMI'. The ditribution wasn't so much skewed.
+
 <figure>
   <img
   src="https://user-images.githubusercontent.com/86815494/164076511-57593284-dbff-43e6-94b6-e8e8af208269.png"
@@ -87,7 +90,7 @@ We created two new features EMI (Equated Monthly Installment) and Balance_Income
 </figure>
 
 
-We visualize the distribution of the newly created feature 'EMI'. The ditribution wasn't so much skewed.
+
 
 **Balance Income** - This is the income left after the EMI has been paid. The idea behind creating this variable is that if this value is high, the chances are high that a person will repay the loan and hence increasing the chances of loan approval. The distribution of this variable was highly skewed so we took the log transformation of it before feeding it to the machine learning model.
 
