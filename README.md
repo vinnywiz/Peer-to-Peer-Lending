@@ -32,12 +32,9 @@
 Peer-to-peer lending is an innovative FinTech product that disrupts the entire banking industry. Traditionally, banks play an intermediary role between borrowers and lenders. Banks collect money from lenders as deposits or savings at a lower rate, then issue loans to borrowers at a higher rate. To protect lenders’ money, banks execute the professional due diligence that distinguishes good borrowers from bad ones. Recently, peer-to-peer lending fintech firms invented a platform that connects lenders with borrowers without these intermediary banks. It gives an opportunity for lenders to earn more returns and for borrowers to get loans in a cheaper and quicker way. 
 ### b. Audience and Motivation 
 Even though peer-to-peer lending platforms give tremendous opportunities to both parties, the solution itself has its own drawbacks. The professional due diligence work is on investors' shoulders.  Not all investors have the professional knowledge like banks to distinguish good borrowers from bad borrowers. Investors are regular people who want to earn a high return on their loans.  If they invest in a bad loan, they would lose their money.  
-<<<<<<< HEAD
 
 Prosper Lending enables investors to browse consumer loan applications containing the applicants loan details, credit history, etc in order to make determinations as to which loans to fund. Loans from applicants deemed at higher risk of default, such as those with lower FICO scores, will typically carry higher interest rates and therefore the potential to yield a higher return on investment for the investor. Alternatively, lower risk of default loans will usually carry lower interest rates. Therefore, a Machine Learning model that could accurately predict the default risk of a loan using the available data on Prosper Lending could help investors maximize their investment returns by identifying the loans worth investing. 
-=======
 Prosper Lending enables investors to browse consumer loan applications containing the applicants loan details, credit history, etc in order to make determinations as to which loans to fund. Loans from applicants deemed at higher risk of default, such as those with lower FICO scores, will typically carry higher interest rates and therefore the potential to yield a higher return on investment for the investor. Alternatively, lower risk of default loans will usually carry lower interest rates. Therefore, a Machine Learning model that could accurately predict the default risk of a loan using the available data on Prosper Lending could help investors maximize their investment returns by identifying the loans worth investing. Additionally, it would give opportunities to diversify portfolio of investors with high returns with high risks and low risks with low returns. 
->>>>>>> 885aa10589b9302ba82e91518d240175c4b992ff
 
 # 2.	Data Acquisition 
 ### a. Data source
@@ -153,11 +150,7 @@ We put local explanations described above together to get a **global explanation
 # 6.	Conclusion and Future Work 
 Predicting the occurrences of loan default in a peer-to-peer lending platform is crucial and challenging task. More accurate prediction models would be highly beneficial since the failure of a peer-to-peer lending platform could trigger a series of financial risks. Our project shows that machine learning methods have broad application prospects in the prediction of P2P loan default.
 
-<<<<<<< HEAD
 For future work, we would want to deploy our model and have a real-time machine learning predictions
-=======
-For future work, we would want to deploy our model and have a real-time machine learning predictions. Futhermore, we plan to include a macro econokmic factors (Inflation, unemployment rate, GDP etc) that highly affect the loan status. This would increase the performance of the current machine learning model. 
->>>>>>> 885aa10589b9302ba82e91518d240175c4b992ff
 
 # 7.    Refrences 
 Xu, J., Lu, Z. & Xie, Y. Loan default prediction of Chinese P2P market: a machine learning methodology. Sci Rep 11, 18759 (2021). https://doi.org/10.1038/s41598-021-98361-6
