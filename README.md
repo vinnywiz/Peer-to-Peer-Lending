@@ -135,15 +135,21 @@ We used the SHAP Python package to interpret our model. SHAP is an increasingly 
 We used a force plot to summarize how each feature contributes to an individual prediction. (insert force plot image and add explanation)
 
 ![image](results/output/Local_Explanability_Listing_Id_0.png)
+
 ![image](results/output/Local_Explanability_Listing_Id_1.png)
+
 ![image](results/output/Local_Explanability_Listing_Id_2.png)
+
 ![image](results/output/Local_Explanability_Listing_Id_3.png)
+
 ![image](results/output/Local_Explanability_Listing_Id_4.png)
 
 ### Global Explanations and Feature Importance
 We put local explanations described above together to get a **global explanation**. And because of the axiomatic assumptions of SHAP, global SHAP explanations can be more reliable that other measures. (insert global plot image and add explanation)
 
 ![image](results/output/global_bar_plot.png)
+
+
 ![image](results/output/global_bee_plot.png)
 
 
