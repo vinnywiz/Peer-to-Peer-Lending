@@ -24,7 +24,8 @@
     - [Feature Contributions (force plot)](#feature-contributions-force-plot)
     - [Global Explanations and Feature Importance](#global-explanations-and-feature-importance)
 - [6.	Conclusion and Future Work](#6conclusion-and-future-work)
-- [7.	References](#7references)
+- [7.    Refrences](#7----refrences)
+
 
 # 1.	Introduction 
 ### a. Background 
@@ -88,8 +89,6 @@ We visualize the distribution of the newly created feature 'EMI'. The ditributio
   alt="The beautiful MDN logo.">
   <figcaption>Distribution of EMI</figcaption>
 </figure>
-
-
 
 
 **Balance Income** - This is the income left after the EMI has been paid. The idea behind creating this variable is that if this value is high, the chances are high that a person will repay the loan and hence increasing the chances of loan approval. The distribution of this variable was highly skewed so we took the log transformation of it before feeding it to the machine learning model.
