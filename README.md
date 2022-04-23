@@ -34,7 +34,7 @@ Prosper Lending enables investors to browse consumer loan applications containin
 
 # 2.	Data Acquisition 
 ### a. Data source
-For our initial datasets, we use two separate datasets from https://www.prosper.com. The first data is the Listing data.  The listing data includes information about all applicants. It includes personal features that can estimate the credit quality of borrowers. The are 886 qualitative and quantitative features per customer. The second data is the loan data.  The loan data includes actual loan information about applicants whose listings are approved and who received a loan from the peer-to-peer platform. The loan data has information about loan characteristics such as loan interest rate, loan amount, loan maturities, principal payments, balance, etc. Additionally, the loan data include the loan status if the loan is defaulted or not. Some of these features in the data are only relevant after loan issuance and therefore not available to investors at the time of investing. We used the Prosper Data Dictionary (https://www.prosper.com/Downloads/Services/Documentation/ProsperDataExport_Details.html) to better undertsnad the features available to investors.
+For our initial datasets, we use two separate datasets from [Prosper Marketplace, Inc](https://www.prosper.com). The first data is the Listing data.  The listing data includes information about all applicants. It includes personal features that can estimate the credit quality of borrowers. The are 886 qualitative and quantitative features per customer. The second data is the loan data.  The loan data includes actual loan information about applicants whose listings are approved and who received a loan from the peer-to-peer platform. The loan data has information about loan characteristics such as loan interest rate, loan amount, loan maturities, principal payments, balance, etc. Additionally, the loan data include the loan status if the loan is defaulted or not. Some of these features in the data are only relevant after loan issuance and therefore not available to investors at the time of investing. We used the [Prosper Data Dictionary](https://www.prosper.com/Downloads/Services/Documentation/ProsperDataExport_Details.html) to better undertsnad the features available to investors.
 
 # 3.	Methodology 
 ### a.	Data Preprocessing 
@@ -74,18 +74,22 @@ For our puposes we oversmapled the minority class to have 10% the number of exam
 ### d.	Feature Engineering
 We created two new features EMI (Equated Monthly Installment) and Balance_Income.
 
-EMI is the monthly amount to be paid by the applicant to repay the loan. The idea behind creating this variable is that people who have high EMI’s might find it difficult to pay back the loan. We can calculate the EMI by taking the ratio of the loan amount with respect to the loan amount term.
-**EMI = amount_borrowed / term**
+**EMI** - This is the monthly amount to be paid by the applicant to repay the loan. The idea behind creating this variable is that people who have high EMI’s might find it difficult to pay back the loan. We can calculate the EMI by taking the ratio of the loan amount with respect to the loan amount term.
+*EMI = amount_borrowed / term*
 
-Balance Income — This is the income left after the EMI has been paid. The idea behind creating this variable is that if this value is high, the chances are high that a person will repay the loan and hence increasing the chances of loan approval. The distribution of this variable was highly skewed so we took the log transformation of it before feeding it to the machine learning model.
-**balance_income = monthly_income - EMI**
+![image](https://user-images.githubusercontent.com/86815494/164076511-57593284-dbff-43e6-94b6-e8e8af208269.png "Distribution of EMI")
 
-![image](https://user-images.githubusercontent.com/86815494/164076511-57593284-dbff-43e6-94b6-e8e8af208269.png)
-![image](https://user-images.githubusercontent.com/86815494/164076538-d2ce5778-67f9-4bd6-beb6-f01507bf0893.png)
-![image](https://user-images.githubusercontent.com/86815494/164076559-d2b8e42a-fda8-475d-a409-30aa8e1d6de5.png)
+We visualize the distribution of the newly created feature 'EMI'. The ditribution wasn't so much skewed.
+
+**Balance Income** - This is the income left after the EMI has been paid. The idea behind creating this variable is that if this value is high, the chances are high that a person will repay the loan and hence increasing the chances of loan approval. The distribution of this variable was highly skewed so we took the log transformation of it before feeding it to the machine learning model.
+*balance_income = monthly_income - EMI*
 
 
-As we see from the distribution, the engineered variables can be a good explainer in our model.
+![image](https://user-images.githubusercontent.com/86815494/164076538-d2ce5778-67f9-4bd6-beb6-f01507bf0893.png "Distribution of Balance Income")
+![image](https://user-images.githubusercontent.com/86815494/164076559-d2b8e42a-fda8-475d-a409-30aa8e1d6de5.png "Log Distribution of Balance Income")
+
+
+Above we can see the distribution of the balance income before and after log transformation. The distribution is normally distributed after log transformation.
 
 ### c.	Machine Learning Models 
 To be able to truly understand and then improve our model’s performance, we established a baseline for the data that we have. We employed a **dummy classifier** as our baseline model. This classifier serves as a simple baseline to compare against other more complex classifiers. The other models we were interested in testing for this problem were **Logistic Regression, Random Forest, and XGBoost classifier.** For our Random Forest and XGBoost classifier we used grid search to get the optimized values of hyper parameters. We observed the performance of our models through the confusion matrix plot and the model classification report (our interest was Accuracy, Precision, Recall, and F1-score). We primarily care about correctly identifying **bad loans**, so the **recall score** will be of much importance. To show the performance of our model, we graphically depicted the Area under the ROC Curve (AUC). By analogy, the Higher the AUC, the better the model is at distinguishing between customers who will default or not.
@@ -126,8 +130,17 @@ Predicting the occurrences of loan default in a peer-to-peer lending platform is
 
 For future work, we would wnat to deploy our model and have a real-time machine learning predictions
 
-Refrences: 
-https://towardsdatascience.com/p2p-lending-platform-data-analysis-exploratory-data-analysis-in-r-part-1-32eb3f41ab16
+## Refrences 
+Xu, J., Lu, Z. & Xie, Y. Loan default prediction of Chinese P2P market: a machine learning methodology. Sci Rep 11, 18759 (2021). https://doi.org/10.1038/s41598-021-98361-6
 
+Molnar, C., 2022. Interpretable Machine Learning. [online] Christophm.github.io. Available at: <https://christophm.github.io/interpretable-ml-book/> [Accessed 15 March 2022].
+
+Zlaoui, K., 2021. Interpretable Machine Learning using SHAP — theory and applications. [online] Medium. Available at: <https://towardsdatascience.com/interpretable-machine-learning-using-shap-theory-and-applications-26c12f7a7f1a> [Accessed 3 April 2022].
+
+Yen, L., 2019. P2P Lending Platform Data Analysis: Exploratory Data Analysis in R —  Part 1. [online] Medium. Available at: <https://towardsdatascience.com/p2p-lending-platform-data-analysis-exploratory-data-analysis-in-r-part-1-32eb3f41ab16> [Accessed 4 March 2022].
+
+Brownlee, J., 2022. SMOTE for Imbalanced Classification with Python. [online] Machine Learning Mastery. Available at: <https://machinelearningmastery.com/smote-oversampling-for-imbalanced-classification/> [Accessed 3 April 2022].
+
+Imbalanced-learn.org. 2022. SMOTE — Version 0.9.0. [online] Available at: <https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.SMOTE.html> [Accessed 3 April 2022].
 
 
