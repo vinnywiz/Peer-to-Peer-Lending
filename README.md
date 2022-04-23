@@ -24,6 +24,7 @@
     - [Feature Contributions (force plot)](#feature-contributions-force-plot)
     - [Global Explanations and Feature Importance](#global-explanations-and-feature-importance)
 - [6.	Conclusion and Future Work](#6conclusion-and-future-work)
+- [7.	References](#7references)
 
 # 1.	Introduction 
 ### a. Background 
@@ -75,13 +76,21 @@ For our puposes we oversmapled the minority class to have 10% the number of exam
 We created two new features EMI (Equated Monthly Installment) and Balance_Income.
 
 **EMI** - This is the monthly amount to be paid by the applicant to repay the loan. The idea behind creating this variable is that people who have high EMI’s might find it difficult to pay back the loan. We can calculate the EMI by taking the ratio of the loan amount with respect to the loan amount term.
+
 *EMI = amount_borrowed / term*
 
-![image](https://user-images.githubusercontent.com/86815494/164076511-57593284-dbff-43e6-94b6-e8e8af208269.png "Distribution of EMI")
+<figure>
+  <img
+  src="https://user-images.githubusercontent.com/86815494/164076511-57593284-dbff-43e6-94b6-e8e8af208269.png"
+  alt="The beautiful MDN logo.">
+  <figcaption>Distribution of EMI</figcaption>
+</figure>
+
 
 We visualize the distribution of the newly created feature 'EMI'. The ditribution wasn't so much skewed.
 
 **Balance Income** - This is the income left after the EMI has been paid. The idea behind creating this variable is that if this value is high, the chances are high that a person will repay the loan and hence increasing the chances of loan approval. The distribution of this variable was highly skewed so we took the log transformation of it before feeding it to the machine learning model.
+
 *balance_income = monthly_income - EMI*
 
 
@@ -128,9 +137,9 @@ We put local explanations described above together to get a **global explanation
 # 6.	Conclusion and Future Work 
 Predicting the occurrences of loan default in a peer-to-peer lending platform is crucial and challenging task. More accurate prediction models would be highly beneficial since the failure of a peer-to-peer lending platform could trigger a series of financial risks. Our project shows that machine learning methods have broad application prospects in the prediction of P2P loan default.
 
-For future work, we would wnat to deploy our model and have a real-time machine learning predictions
+For future work, we would want to deploy our model and have a real-time machine learning predictions
 
-## Refrences 
+# 7.    Refrences 
 Xu, J., Lu, Z. & Xie, Y. Loan default prediction of Chinese P2P market: a machine learning methodology. Sci Rep 11, 18759 (2021). https://doi.org/10.1038/s41598-021-98361-6
 
 Molnar, C., 2022. Interpretable Machine Learning. [online] Christophm.github.io. Available at: <https://christophm.github.io/interpretable-ml-book/> [Accessed 15 March 2022].
