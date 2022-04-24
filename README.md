@@ -210,7 +210,7 @@ We can see that "Borrower Rate", "Fico Range" & "Amount Borrowed" are the most i
 ![image](results/output/global_bee_plot.png)
 
 ## Local Explainations
-Each observation gets its own set of SHAP values. We randomly chose 5 individual observations (see the individual SHAP value plot below). This greatly increases the transparency of our model predictions. We can explain why a case receives its prediction and the contributions of the predictors. Traditional variable importance algorithms only show the results across the entire population but not on each individual case. The local interpretability enables us to pinpoint and contrast the impacts of the factors.
+Each observation gets its own set of SHAP values. We randomly chose 7 individual observations (see the individual SHAP value plot below). This greatly increases the transparency of our model predictions. We can explain why a case receives its prediction and the contributions of the predictors. Traditional variable importance algorithms only show the results across the entire population but not on each individual case. The local interpretability enables us to pinpoint and contrast the impacts of the factors.
 
 
 <div align="center"> 
@@ -235,6 +235,25 @@ Looking at **individual plot 1**, the amount_borrowed and balance_income indicat
 
 Alternatively, looking at **individual plot 5**, the model predicted that it is a bad loan when it is actually not a bad loan. The 6 variables in red had a high and positive impact on the prediction. We can see that balance_income had a negative and low impact. The understanding here is that the balance income of individual 5 may be less than his or her monthly payment. Therefore, there is a high chance that the loan will be a bad loan as the individual may default. 
 
+### Waterfall plot
+In the waterfall plot we need to note that by default SHAP explains XGBoost classifer models in terms of their margin output before the logistic link function(sigmoid function). That means the units on the x-axis are log-odds units, so negative values imply probabilities of less than 0.5. 
+
+The summation of all the shap values equals the difference between f(x) and E(f(x)) and this can be seen in the below individual observations.
+
+<div align="center"> 
+
+**Individual Observation 6**
+<img src="results/output/XGBoost_Local_Explanability_Listing_Id_2.png" alt="drawing" width="650" height="500"/>
+
+**Individual Observation 7**
+<img src="results/output/XGBoost_Local_Explanability_Listing_Id_1.png" alt="drawing" width="650" height="500"/>
+</div>
+
+We can see that in **Individual 6** the normalized feature value for "Borrower_Rate" is 1.489 and shap value for the same is +0.26. It has the highest effect on the prediction and we observe in this case how it is positively affecting the probability in predicting the loan as bad with 1.051 in the log odds. The magnitude of each feature shap value shows how much it contributes to the eventual prediction.
+
+We can see that in **Individual 7** the normalized feature value for "Borrower_Rate" is -.593 and the shap value for the same is -.08. It has the 2nd highest impact on this listing but the impact is in the opposite direction which helps identify this listing as "not a bad loan" with a final probability(f(x)) of -.002. 
+
+
 # 6.	Conclusion, Future Work and Ethical concern 
 Predicting the occurrences of bad loans in a peer-to-peer lending platform is crucial and challenging task. More accurate prediction models would be highly beneficial since the failure of a peer-to-peer lending platform could trigger a series of financial risks. Our project shows that machine learning methods have broad application prospects in the prediction of P2P loan default.
 
@@ -242,9 +261,9 @@ The performance has only improved slightly through the modeling process but we h
 
 For future work, we would want to deploy our model and have a real-time machine learning predictions. Futhermore, we plan to include macro economic factors (Inflation, unemployment rate, GDP etc) that highly affect the loan status. This would increase the performance of the current machine learning model. 
 
-Our target feature 'bad loan' has two flags (1-bad loan, 0-not a bad loan). The 'not a bad loan' flag is a combination of (Completed and Current loans). The problem here is that we have no knowledge of whether a current loan will be defaulted in the near future or not. So for our future work, in the training dataset, we would want to remove the current loan data and only include current loans in our test data. There are potential side effects to this as we would be excluding a large number of recently opened loans in our training process.  
+Another improvement would be with our target feature 'bad loan' (1-bad loan, 0-not a bad loan). The 'not a bad loan' is a combination of (Completed and Current loans). The problem here is that we have no knowledge of whether a current loan will be defaulted in the near future or not. So for our future work, in the training dataset, we would want to remove the current loan data and only include current loans in our test data. There are potential side effects to this as we would be excluding a large number of recently opened loans in our training process.
 
-Futhermore, we plan to develop a dashboard to help investors to examine listing applications more in-depth. With the dashboard, it would work as a support info along with current FICO score and other indicators. 
+Futhermore, we plan to develop a dashboard to help investors to examine listing applications more in-depth. The current shap values are normalized but for  display on the dashboard we would like to have the original values for each of the features. These would work as a support information along with current FICO score and other indicators. 
 
 For our project analysis, we do not disclose any individual information about loan applicants in our visualization and outcomes. We carefully consider that our model would not discriminate loan applications based on racial, ethnicity group identifications. We have chosen features that can be generalized to produce our outcome. 
 
