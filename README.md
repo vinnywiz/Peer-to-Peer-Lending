@@ -183,10 +183,6 @@ Each observation gets its own set of SHAP values. We randomly chose 5 individual
 <div align="center">
 
 **Individual Observation 1**
-<<<<<<< HEAD
-
-=======
->>>>>>> c37fc3f6fd9795de2e0e58be1f0e91938b71e5dd
 <img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_0.png" alt="drawing" width="650" height="500"/>
 
 **Individual Observation 2**
