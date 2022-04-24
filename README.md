@@ -32,30 +32,30 @@
 
 # 1.	Introduction 
 ### a. Background 
-Peer-to-peer lending is an innovative FinTech product that disrupts the entire banking industry. Traditionally, banks play an intermediary role between borrowers and lenders. Banks collect money from lenders as deposits or savings at a lower rate, then issue loans to borrowers at a higher rate. To protect lenders’ money, banks execute the professional due diligence that distinguishes good borrowers from bad ones. Recently, peer-to-peer lending fintech firms invented a platform that connects lenders with borrowers without these intermediary banks. It gives an opportunity for lenders to earn more returns and for borrowers to get loans in a cheaper and quicker way. 
+Peer-to-peer lending is an innovative FinTech product that disrupts the entire banking industry. Traditionally, banks play an intermediary role between borrowers and lenders. Banks collect money from lenders as deposits or savings at a lower rate, then issue loans to borrowers higher. In addition, banks execute professional due diligence to protect lenders' money, distinguishing good borrowers from bad ones. Recently, peer-to-peer lending fintech firms invented a platform that connects lenders with borrowers without these intermediary banks. It allows lenders to earn more returns and for borrowers to get loans more cheaply and quickly. 
 ### b. Audience and Motivation 
-Even though peer-to-peer lending platforms give tremendous opportunities to both parties, the solution itself has its own drawbacks. The professional due diligence work is on investors' shoulders.  Not all investors have the professional knowledge like banks to distinguish good borrowers from bad borrowers. Investors are regular people who want to earn a high return on their loans.  If they invest in a bad loan, they would lose their money.  
+Even though peer-to-peer lending platforms give tremendous opportunities to both parties, the solution itself has its drawbacks. The professional due diligence work is on investors' shoulders. Not all investors have the professional knowledge like banks to distinguish good from bad borrowers. Investors are regular people who want to earn a high return on their loans. If they invest in a bad loan, they will lose their money.  
 
-Prosper Lending enables investors to browse consumer loan applications containing the applicants loan details, credit history, etc in order to make determinations as to which loans to fund. Loans from applicants deemed at higher risk of default, such as those with lower FICO scores, will typically carry higher interest rates and therefore the potential to yield a higher return on investment for the investor. 
+Prosper Lending enables investors to browse consumer loan applications containing the applicant's loan details, credit history, etc., to determine which loans to fund. For example, loans from applicants deemed at higher risk of default, such as those with lower FICO scores, will typically carry higher interest rates and, therefore, the potential to yield a higher return on investment for the investor. 
 
-Alternatively, lower risk of default loans will usually carry lower interest rates. Therefore, a Machine Learning model that could accurately predict a bad loan (default risk of a loan) using the available data on Prosper Lending could help investors maximize their investment returns by identifying the loans worth investing. 
+Alternatively, lower risk of default loans will usually carry lower interest rates. Therefore, a Machine Learning model that could accurately predict a bad loan (default risk of a loan) using the available data on Prosper Lending could help investors maximize their investment returns by identifying the loans worth investing in. 
 
- Additionally, it would give opportunities to diversify portfolio of investors with high returns with high risks and low risks with low returns. 
+ Additionally, it would diversify the portfolio of investors with high returns with high risks and low risks with low returns. 
 
 # 2.	Data Acquisition 
 ### a. Data source
-For our initial datasets, we use two separate datasets from [Prosper Marketplace, Inc](https://www.prosper.com). The first data is the Listing data.  The listing data includes information about all applicants. It includes personal features that can estimate the credit quality of borrowers. The are 886 qualitative and quantitative features per customer. 
+We use two separate datasets from [Prosper Marketplace, Inc](https://www.prosper.com). The first data is the Listing data. The listing data includes information about all applicants. It includes personal features that can estimate the credit quality of borrowers. The are 886 qualitative and quantitative features per customer with inconsistent data availalbility. 
 
-The second data is the loan data.  The loan data includes actual loan information about applicants whose listings are approved and who received a loan from the Prosper Lending platform. The loan data has information about loan characteristics such as loan interest rate, loan amount, loan maturities, principal payments, balance, etc. 
+The second data is the loan data. The loan data includes actual loan information about applicants whose listings are approved and who received a loan from the Prosper Lending platform. In addition, the loan data has information about loan characteristics such as loan interest rate, loan amount, loan maturities, principal payments, balance, etc. 
 
-Additionally, the loan data include our target feature, the loan status column. This column contains information that signifies if a loan is a bad loan (defaulted) or not a bad loan (completed). Some of the features in the listings and loan data are only relevant after loan issuance and are therefore not available to investors at the time of investing. We used the [Prosper Data Dictionary](https://www.prosper.com/Downloads/Services/Documentation/ProsperDataExport_Details.html) to better understand the features available to investors prior to a loan issuance.
+The loan data include our target feature, the loan status column. This column contains information that signifies if a loan is a bad loan (defaulted) or not a bad loan (completed). Some of the features in the listings and loan data are only relevant after loan issuance and are therefore not available to investors at the time of investing. We used the [Prosper Data Dictionary](https://www.prosper.com/Downloads/Services/Documentation/ProsperDataExport_Details.html) to better understand the features available to investors before a loan issuance.
 
 # 3.	Methodology 
 
 ![image](results/Design/etl.jpg)
 
 ### a.	Data Preprocessing 
-To begin, we executed a simple exploratory analysis using the data dictionary to find unique key identifiers to merge the listings and loans data. Both datasets have their unique key identifiers however, there is no direct connection between the unique identifiers. We decided to merge the two datasets with 6 common variables **(loan_origination_date, amount_borrowed, borrower_rate, prosper_rating, term, and co_borrower_application)**. We kept only uniquely merged rows as there might be two same borrowers who requested the same amount of loan and received the same loan interest and maturity. We filtered the data to only include loans from 2015 - 2021. After merging we had more that 80% unique matches between the 2 sources.
+To begin, we executed a simple exploratory analysis using the data dictionary to find unique key identifiers to merge the listings and loans data. Both datasets have their unique key identifiers; however, there is no direct connection between the unique identifiers. We decided to merge the two datasets with 6 common variables **(loan_origination_date, amount_borrowed, borrower_rate, prosper_rating, term, and co_borrower_application)**. We kept only uniquely merged rows as there might be two same borrowers who requested the same amount of loan and received the same loan interest and maturity. We filtered the data to only include loans from 2015 to 2021. After merging, we had more than 80% unique matches between the two sources.
 
  Other features in the loans and listing data was dropped based on these conditions;
   - features with >50% of missing data 
@@ -83,9 +83,9 @@ A plot of defaulting customers
 
 ![image](results/output/Scatter_Plot_Without_Smote.png)
 
-We can see that a small percentage of customers are defaulting. This is a typical imbalanced dataset where the default rate is much lower than the successful completed rate. Machine learning algorithms applied to imbalanced classification datasets can produce biased predictions with misleading accuracies. We will use the SMOTE library to try mitigate this problem.
+We can see that a small percentage of customers are defaulting. This is a typical imbalanced dataset where the default rate is much lower than the successfully completed rate. Therefore, machine learning algorithms applied to imbalanced classification datasets can produce biased predictions with misleading accuracies. We will use the SMOTE library to try to mitigate this problem.
 
-To avoid multicollinearity in the data, both numeric and categorial variables exhibiting high degrees of multicollinearity >0.85 were dropped from the dataset
+To avoid multicollinearity in the data, both numeric and categorical variables exhibiting high degrees of multicollinearity >0.85 were dropped from the dataset
 
 ![image](results/correlation_matrix_numbers.png)
 
@@ -139,7 +139,7 @@ We visualize the distribution of the newly created feature 'EMI'. The ditributio
 Above we can see the distribution of the balance income before and after log transformation. The distribution is normally distributed after log transformation.
 
 ### c.	Machine Learning Models 
-To be able to truly understand and then improve our model’s performance, we established a baseline for the data that we have. We employed a **dummy classifier** as our baseline model. This classifier serves as a simple baseline to compare against other more complex classifiers. The other models we were interested in testing for this problem were **Logistic Regression, Random Forest, and XGBoost classifier.** For our Random Forest and XGBoost classifier we used grid search to get the optimized values of hyper parameters. We observed the performance of our models through the confusion matrix plot and the model classification report (our interest was Accuracy, Precision, Recall, and F1-score). We primarily care about correctly identifying **bad loans**, so the **recall score** will be of much importance. To show the performance of our model, we graphically depicted the Area under the ROC Curve (AUC). By analogy, the Higher the AUC, the better the model is at distinguishing between customers who will default or not.
+To be able to understand and then improve our model’s performance truly, we established a baseline for the data that we have. We employed a **dummy classifier** as our baseline model. This classifier serves as a simple baseline to compare against other more complex classifiers. The other models we were interested in testing for this problem were **Logistic Regression, Random Forest, and XGBoost classifier.** For our Random Forest and XGBoost classifier, we used grid search to get the optimized values of hyperparameters. We observed the performance of our models through the confusion matrix plot and the model classification report (our interest was Accuracy, Precision, Recall, and F1-score). We primarily care about correctly identifying **bad loans**, so the **recall score** will be necessary. To show the performance of our model, we graphically depicted the Area under the ROC Curve (AUC). By analogy, the Higher the AUC, the better the model is at distinguishing between customers who will default or not.
 
 <div align="center">
 <img src="results/Design/buildModel.jpg" alt="drawing" />
@@ -147,14 +147,14 @@ To be able to truly understand and then improve our model’s performance, we es
 
 # 4.	Results and Discussion 
 ### Dummy Classifier
-As we stated earlier, the dummy classifier was to just have a baseline to compare our model with. When loans are predicted to be bad they are bad 86% of the time. Of all the true bad-loans this model identified 50% of them. We observed an F1-score of 63% for bad loans.
+As we stated earlier, the dummy classifier was just to have a baseline to compare our model with. When loans are predicted to be bad, they are wrong 86% of the time. Of all the actual bad loans, this model identified 50% of them. We observed an F1-score of 63% for bad loans.
 
 <div align="center">
 <img src="results/output/dummy_smote_classification_report.png" alt="drawing" width="600" height="500"/>
 </div>
 
 ### Logistic regression 
-Of all the true bad-loans the logistic regression model identified 68% of them and when the loans are predicted to be bad they are bad 92% of the time. By comparing with our baseline model we saw an improvement in the model performance. An F1-score of 78% was observed for bad loans. The model had an accuracy of 68%.
+Of all the true bad loans, the logistic regression model identified 68% of them, and when the loans are predicted to be bad, they are bad 92% of the time. By comparing with our baseline model, we saw an improvement in the model performance. An F1-score of 78% was observed for bad loans. The model had an accuracy of 68%.
 
 <div align="center">
 <img src="results/output/Logistic_smote_classification_report.png" alt="drawing" width="650" height="500"/>
@@ -183,7 +183,10 @@ Each observation gets its own set of SHAP values. We randomly chose 5 individual
 <div align="center">
 
 **Individual Observation 1**
+<<<<<<< HEAD
 
+=======
+>>>>>>> c37fc3f6fd9795de2e0e58be1f0e91938b71e5dd
 <img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_0.png" alt="drawing" width="650" height="500"/>
 
 **Individual Observation 2**
@@ -201,7 +204,22 @@ Each observation gets its own set of SHAP values. We randomly chose 5 individual
 
 Looking at *individual plot 1*, the amount_borrowed and balance_income indicates that both features are positively correlated with the target variable (bad loan) for individual 1. This means that they have a high (from color red) and positive impact (shown on the x-axis) on predicting that individual 1 loan is not a bad loan.
 
+<<<<<<< HEAD
 Alternatively, looking at *individual plot 5*, the model predicted that it is a bad loan when it is actually not a bad loan. The 6 variables in red had a high and positive impact on the prediction. We can see that balance_income had a negative and low impact. The understanding here is that the balance income of individual 5 may be less than his or her monthly payment. Therefore, there is a high chance that the loan will be a bad loan as the individual may default. 
+=======
+### Waterfall plot
+The waterfall plot has the same information, represented differently.
+Here we can see how the sum of all the SHAP values equals the difference between the prediction f(x) and the expected value E[f(x)].
+Waterfall plots are designed to display explanations for individual predictions, so they expect a single row of an Explanation object as input. The bottom of a waterfall plot starts as the expected value of the model output. Then each row shows how the positive (pink) or negative (blue) contribution of each feature moves the value from the expected model output over the background dataset to the model output for this prediction.
+We could notice that a higher value of the " "  has a high and positive impact on the quality rating. The “high” comes from the pink color, and the “positive” impact is shown on the X-axis. Similarly, we will say the " " is negatively correlated with the target variable.
+Note that SHAP explains XGBoost classifier models in terms of their margin output before the logistic link function. That means the units on the x-axis are log-odds units, so negative values imply probabilities of less than 0.5 that the loan is a bad loan. The units on the x-axis in the waterfall plot are log-odds units but not a probability.You can convert the log-odd to a probability of [0,1] by using the logistic sigmoid function, which is expit(x) = 1/(1+exp(-x)).
+
+
+### Bar Plot
+This plot shows us what are the main features affecting the prediction of a single observation,
+and the magnitude of the SHAP value for each feature.The bar plot centers at zero and shows the contributions of features,feature values are show in gray to the left of the feature names.
+So we saw that positive values Fico_range,Borrower_Rate,Funding Threshold has higher impact on prediction where as
+>>>>>>> c37fc3f6fd9795de2e0e58be1f0e91938b71e5dd
 
 ### Global Explanations and Feature Importance
 We put local explanations described above together to get a **global explanation**. And because of the axiomatic assumptions of SHAP, global SHAP explanations can be more reliable than other measures. The collective SHAP values can show how much each predictor contributes, either positively or negatively, to the target variable. This is like the variable importance plot but it is able to show the positive or negative relationship for each variable with the target.
