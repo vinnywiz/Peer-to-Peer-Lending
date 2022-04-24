@@ -230,7 +230,7 @@ The SHAP value  Summary plot can further show the positive and negative relation
 ### Beeswarm Plot
 The beeswarm plot is designed to display an information-dense summary of how the top features in the dataset impact the model’s output. All the little dots on the plot represent a single observation. The horizontal axis represents the SHAP value, while the color of the point shows us if that observation has a higher or a lower value, when compared to other observations.
 
-We can see that "borrower_rate" is the most important feature on average, and that borrowers are less likely to get a rate of over 36 months.
+We can see that "Borrower Rate", "Fico Range" & "Amount Borrowed" are the most important feature on average and these features should be carefully observed in the local explanations for bad loans.
 
 ![image](results/output/global_bee_plot.png)
 
