@@ -154,16 +154,16 @@ We used the SHAP Python package to interpret our model. SHAP is an increasingly 
 ## Local Explainations
 Each observation gets its own set of SHAP values (see the individual SHAP value plot below). This greatly increases its transparency. We can explain why a case receives its prediction and the contributions of the predictors. Traditional variable importance algorithms only show the results across the entire population but not on each individual case. The local interpretability enables us to pinpoint and contrast the impacts of the factors.
 
-![image](results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_0.png)
+<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_0.png" alt="drawing" width="450" height="300"/>
 
-![image](results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_1.png)
+<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_1.png" alt="drawing" width="450" height="300"/>
 
-![image](results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_2.png)
+<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_2.png" alt="drawing" width="450" height="300"/>
 
+<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_3.png" alt="drawing" width="450" height="300"/>
 
-![image](results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_3.png)
+<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_4.png" alt="drawing" width="450" height="300"/>
 
-![image](results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_4.png)
 
 ### Feature Contributions (force plot)
 We used a force plot to summarize how each feature contributes to an individual prediction. The below explanation shows features each contributing to push the model output from the base value (the average model output over the sampled dataset (5000 random samples) we passed) to the model output. Features pushing the prediction higher are shown in red, those pushing the prediction lower are in blue.
