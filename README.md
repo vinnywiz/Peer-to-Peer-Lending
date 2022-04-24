@@ -75,19 +75,22 @@ A plot of distribution of borrowed amount by loan term
 The distribution is right skewed and also consistent with the fact that more people tend to pay smaller loans quickly
 
 A plot of defaulting customers
-(*** add image)
+
 We can see that a small percentage of customers are defaulting. This is a typical imbalanced dataset where the default rate is much lower than the successful completed rate. Machine learning algorithms applied to imbalanced classification datasets can produce biased predictions with misleading accuracies. We will use the SMOTE library to try mitigate this problem.
 
-A correlation matrix plot
-(*** add image)
+
 To avoid multicollinearity in the data, both numeric and categorial variables exhibiting high degrees of multicollinearity >0.85 were dropped from the dataset
+
+![image](results/output/correlation_plot_numbers.png)
 
 ### c. SMOTE - Synthetic Minority Oversampling Technique
 We use the Synthetic Minority Oversampling Technique (SMOTE), which is a widely adopted approach, to address the class imbalance dataset. SMOTE uses bootstrapping and k-nearest neighnors to construct new minority class instances by transforming data based on feature space (rather than data space) similarities from minority samples. SMOTE performs a combination of oversampling and undersampling to construct a balanced dataset.
 
 For our puposes we oversmapled the minority class to have 10% the number of examples of the majority class. We then used random undersampling to reduce the number of examples in the majority class to have 80% more than the minority class. Ratios are what works best for your data. We believe this ratio works best for us. As shown below we successfully generated a balanced dataset using smote.
 
-Visualizing the imbalanced data
+![image](results/output/Bar_Plot_Without_Smote.png)
+
+![image](results/output/Bar_Plot_With_Smote.png)
 
 
 ### d.	Feature Engineering
@@ -99,21 +102,16 @@ We created two new features EMI (Equated Monthly Installment) and Balance_Income
 
 We visualize the distribution of the newly created feature 'EMI'. The ditribution wasn't so much skewed.
 
-<figure>
-  <img
-  src="https://user-images.githubusercontent.com/86815494/164076511-57593284-dbff-43e6-94b6-e8e8af208269.png"
-  alt="The beautiful MDN logo.">
-  <figcaption>Distribution of EMI</figcaption>
-</figure>
-
+![image](results/output/EDA_Hist_Plot_EMI.png)
 
 **Balance Income** - This is the income left after the EMI has been paid. The idea behind creating this variable is that if this value is high, the chances are high that a person will repay the loan and hence increasing the chances of loan approval. The distribution of this variable was highly skewed so we took the log transformation of it before feeding it to the machine learning model.
 
 *balance_income = monthly_income - EMI*
 
+![image](results/output/EDA_Hist_Plot_balance.png)
 
-![image](https://user-images.githubusercontent.com/86815494/164076538-d2ce5778-67f9-4bd6-beb6-f01507bf0893.png "Distribution of Balance Income")
-![image](https://user-images.githubusercontent.com/86815494/164076559-d2b8e42a-fda8-475d-a409-30aa8e1d6de5.png "Log Distribution of Balance Income")
+
+![image](results/output/EDA_Hist_Plot_balance_log_balance.png)
 
 
 Above we can see the distribution of the balance income before and after log transformation. The distribution is normally distributed after log transformation.
@@ -125,39 +123,61 @@ To be able to truly understand and then improve our model’s performance, we es
 ### Dummy Classifier
 As we stated earlier, the dummy classifier was to just have a baseline to compare our model with. When loans are predicted to be bad they are bad 86% of the time. Of all the true bad-loans this model identified 50% of them. We observed an F1-score of 63% for bad loans.
 
+![image](results/output/dummy_smote_classification_report.png)
+
+
 ### Logistic regression 
 Of all the true bad-loans the logistic regression model identified 68% of them and when the loans are predicted to be bad they are bad 92% of the time. By comparing with our baseline model we saw an improvement in the model performance. An F1-score of 78% was observed for bad loans. The model had an accuracy of 68%.
 
 
-
+![image](results/output/Logistic_smote_classification_report.png)
 
 ### Random Forest
 Our Random Forest model identified 70% of true bad-loans with a 92% precision. There was a slight improvement in the model accuracy (69%). We also observed a slight improvement in the F1-score (79%). The Random Forest model seems to be the best performing model so far.
 
-
+![image](results/output/RandomForest_smote_classification_report.png)
 
 ### XGBoost Classifier
 The XGBoost model reported an accuracy of 71% (best performing model out of the lot). Of all the true bad-loans this model identified 72% of them and when the loans are predicted to be bad they are bad 92% of the time. The harmonic-mean of the Precision and Recall was 81% of bad-loans. We therefore concluded that the XGBoost is our best performing model to do a model explainability.
 
-![image](results/output/classification_report.png)
+![image](results/output/XGBoost_smote_classification_report.png)
 
  # 5.   Model Explainability (SHapley Additive exPlanations - SHAP)
-We used the SHAP Python package to interpret our model. SHAP is an increasingly popular method used for interpretable machine learning.
+We used the SHAP Python package to interpret our model. SHAP is an increasingly popular method used for interpretable machine learning. SHAP assigns each feature an importance value for a particular prediction. SHAP builds model explanations by asking the same question for every prediction and feature: "How does prediction i change when feature j is removed from the model?" So-called SHAP values are the answers. They quantify the magnitude and direction (positive or negative) of a feature’s effect on a prediction. It is important to point out the SHAP values do not provide causality.
+
+## Local Explainations
+Each observation gets its own set of SHAP values (see the individual SHAP value plot below). This greatly increases its transparency. We can explain why a case receives its prediction and the contributions of the predictors. Traditional variable importance algorithms only show the results across the entire population but not on each individual case. The local interpretability enables us to pinpoint and contrast the impacts of the factors.
+
 ### Feature Contributions (force plot)
-We used a force plot to summarize how each feature contributes to an individual prediction. (insert force plot image and add explanation)
+We used a force plot to summarize how each feature contributes to an individual prediction. The below explanation shows features each contributing to push the model output from the base value (the average model output over the sampled dataset (5000 random samples) we passed) to the model output. Features pushing the prediction higher are shown in red, those pushing the prediction lower are in blue.
 
-![image](results/output/Local_Explanability_Listing_Id_0.png)
+The prediction is the probability that the loan is the Bad Loan.Red arrows represent feature effects (SHAP values) that drive the prediction value higher while blue arrows are those effects that drive the prediction value lower. Each arrow’s size represents the magnitude of the corresponding feature’s effect. The "base value" (see the grey print towards the upper-left of the image) marks the model’s average prediction over the sampled Test set.
+We can see that lower Funding Threshold,prosper_rate and EMI have positive or increased impact and higher monthly payment have negative or decreased impact on the prediction.
 
-![image](results/output/Local_Explanability_Listing_Id_1.png)
+### Waterfall plot
+The waterfall plot has the same information, represented in a different manner.
+Here we can see how the sum of all the SHAP values equals the difference between the prediction f(x) and the expected value E[f(x)].
+Waterfall plots are designed to display explanations for individual predictions, so they expect a single row of an Explanation object as input. The bottom of a waterfall plot starts as the expected value of the model output, and then each row shows how the positive (pink) or negative (blue) contribution of each feature moves the value from the expected model output over the background dataset to the model output for this prediction.
+We could notice that a higher value of the " "  has a high and positive impact on the quality rating. The “high” comes from the pink color, and the “positive” impact is shown on the X-axis. Similarly, we will say the " " is negatively correlated with the target variable.
+Note that by default SHAP explains XGBoost classifer models in terms of their margin output, before the logistic link function. That means the units on the x-axis are log-odds units, so negative values imply probabilies of less than 0.5 that the loan is a bad loan.The units on the x-axis in the waterfall plot are log-odds units but not probability.You can convert the log-odd to a probability of [0,1] by using the logistic sigmoid function, which is expit(x) = 1/(1+exp(-x)).
 
-![image](results/output/Local_Explanability_Listing_Id_2.png)
-
-![image](results/output/Local_Explanability_Listing_Id_3.png)
-
-![image](results/output/Local_Explanability_Listing_Id_4.png)
+### Bar Plot
+This plot shows us what are the main features affecting the prediction of a single observation,
+and the magnitude of the SHAP value for each feature.The bar plot centers at zero and shows the contributions of features,feature values are show in gray to the left of the feature names.
+So we saw that positive values Fico_range,Borrower_Rate,Funding Threshold has higher impact on prediction where as
 
 ### Global Explanations and Feature Importance
-We put local explanations described above together to get a **global explanation**. And because of the axiomatic assumptions of SHAP, global SHAP explanations can be more reliable that other measures. (insert global plot image and add explanation)
+We put local explanations described above together to get a **global explanation**. And because of the axiomatic assumptions of SHAP, global SHAP explanations can be more reliable that other measures. The collective SHAP values can show how much each predictor contributes, either positively or negatively, to the target variable. This is like the variable importance plot but it is able to show the positive or negative relationship for each variable with the target.
+
+### Bar Plot
+Here the features are ordered from the highest to the lowest effect on the prediction.
+It takes in account the absolute SHAP value,so it does not matter if the feature affects the prediction in a positive or negative way.
+
+### Summary Plot
+The SHAP value  Summary plot can further show the positive and negative relationships of the predictors with the target variable.
+
+### Beeswarm Plot
+On the beeswarm the features are also ordered by their effect on prediction, but we can also see how higher and lower values of the feature will affect the result. All the little dots on the plot represent a single observation. The horizontal axis represents the SHAP value, while the color of the point shows us if that observation has a higher or a lower value, when compared to other observations.
 
 ![image](results/output/global_bar_plot.png)
 
