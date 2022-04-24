@@ -31,9 +31,8 @@ Members: Zagdbazar Davaadorj, Osei Bonsu , Supriya Patwardhan, Vineeth Yeluru
     - [Bar Plot](#bar-plot)
     - [Summary Plot](#summary-plot)
     - [Beeswarm Plot](#beeswarm-plot)
-- [6.	Conclusion, Future Work and Ethical concern](#6conclusion-and-future-work)
+- [6.	Conclusion, Future Work and Ethical concern](#6conclusion-future-work-and-ethical-concern)
 - [7.    Refrences](#7----refrences)
-
 
 # 1.	Introduction 
 ### a. Background 
@@ -243,7 +242,7 @@ Predicting the occurrences of bad loans in a peer-to-peer lending platform is cr
 
 The performance has only improved slightly through the modeling process but we have removed attributes that could lead to leakage and getting performance that does capture over 60% of the bad loans. There is additional scope for hyperparameter tuning that would allow the model to better classify the loan. 
 
-For future work, we would want to deploy our model and have a real-time machine learning predictions. Futhermore, we plan to include a macro economic factors (Inflation, unemployment rate, GDP etc) that highly affect the loan status. This would increase the performance of the current machine learning model. 
+For future work, we would want to deploy our model and have a real-time machine learning predictions. Futhermore, we plan to include macro economic factors (Inflation, unemployment rate, GDP etc) that highly affect the loan status. This would increase the performance of the current machine learning model. 
 
 Futhermore, we plan to develop a dashboard to help investors to examine listing applications more in-depth. With the dashboard, it would work as a support info along with current FICO score and other indicators. 
 
