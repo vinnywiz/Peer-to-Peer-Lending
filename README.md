@@ -146,7 +146,7 @@ We used the SHAP Python package to interpret our model. SHAP is an increasingly 
 ### Feature Contributions (force plot)
 We used a force plot to summarize how each feature contributes to an individual prediction. (insert force plot image and add explanation)
 
-<img src="![image](results/output/Local_Explanability_Listing_Id_0.png)" alt="drawing" width="200"/>
+![image](results/output/Local_Explanability_Listing_Id_0.png)
 
 ![image](results/output/Local_Explanability_Listing_Id_1.png)
 
