@@ -138,7 +138,7 @@ We visualize the distribution of the newly created feature 'EMI'. The ditributio
 
 
 
-Above we can see the distribution of the balance income before and after log transformation. The distribution is normally distributed after log transformation.
+Above we can see the distribution of the log balance income and it is normally distributed.
 
 ### c.	Machine Learning Models 
 To be able to understand and then improve our model’s performance truly, we established a baseline for the data that we have. We employed a **dummy classifier** as our baseline model. This classifier serves as a simple baseline to compare against other more complex classifiers. The other models we were interested in testing for this problem were **Logistic Regression, Random Forest, and XGBoost classifier.** For our Random Forest and XGBoost classifier, we used grid search to get the optimized values of hyperparameters. We observed the performance of our models through the confusion matrix plot and the model classification report (our interest was Accuracy, Precision, Recall, and F1-score). We primarily care about correctly identifying **bad loans**, so the **recall score** will be necessary. To show the performance of our model, we graphically depicted the Area under the ROC Curve (AUC). By analogy, the Higher the AUC, the better the model is at distinguishing between customers who will default or not.
