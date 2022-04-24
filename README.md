@@ -179,31 +179,6 @@ The XGBoost model reported an accuracy of 70% (best performing model out of the 
  # 5.   Model Explainability (SHapley Additive exPlanations - SHAP)
 We used the SHAP Python package to interpret our model. SHAP is an increasingly popular method used for interpretable machine learning. SHAP assigns each feature an importance value for a particular prediction. SHAP builds model explanations by asking the same question for every prediction and feature: "How does prediction *i* change when feature *j* is removed from the model?" So-called SHAP values are the answers. They quantify the magnitude and direction (positive or negative) of a feature’s effect on a prediction. It is important to point out that the SHAP values do not provide causality.
 
-## Local Explainations
-Each observation gets its own set of SHAP values. We randomly chose 5 individual observations (see the individual SHAP value plot below). This greatly increases the transparency of our model predictions. We can explain why a case receives its prediction and the contributions of the predictors. Traditional variable importance algorithms only show the results across the entire population but not on each individual case. The local interpretability enables us to pinpoint and contrast the impacts of the factors.
-
-**Individual Observation 1**
-<div align="center"> 
-
-<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_0.png" alt="drawing" width="650" height="500"/>
-
-**Individual Observation 2**
-<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_1.png" alt="drawing" width="650" height="500"/>
-
-**Individual Observation 3**
-<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_2.png" alt="drawing" width="650" height="500"/>
-
-**Individual Observation 4**
-<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_3.png" alt="drawing" width="650" height="500"/>
-
-**Individual Observation 5**
-<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_4.png" alt="drawing" width="650" height="500"/>
-</div>
-
-Looking at **individual plot 1**, the amount_borrowed and balance_income indicates that both features are positively correlated with the target variable (bad loan) for individual 1. This means that they have a high (from color red) and positive impact (shown on the x-axis) on predicting that individual 1 loan is not a bad loan.
-
-Alternatively, looking at **individual plot 5**, the model predicted that it is a bad loan when it is actually not a bad loan. The 6 variables in red had a high and positive impact on the prediction. We can see that balance_income had a negative and low impact. The understanding here is that the balance income of individual 5 may be less than his or her monthly payment. Therefore, there is a high chance that the loan will be a bad loan as the individual may default. 
-
 ## Global Explanations and Feature Importance
 We put local explanations described above together to get a **global explanation**. And because of the axiomatic assumptions of SHAP, global SHAP explanations can be more reliable than other measures. The collective SHAP values can show how much each predictor contributes, either positively or negatively, to the target variable. This is like the variable importance plot but it is able to show the positive or negative relationship for each variable with the target.
 
@@ -230,10 +205,35 @@ The SHAP value  Summary plot can further show the positive and negative relation
 ### Beeswarm Plot
 The beeswarm plot is designed to display an information-dense summary of how the top features in the dataset impact the model’s output. All the little dots on the plot represent a single observation. The horizontal axis represents the SHAP value, while the color of the point shows us if that observation has a higher or a lower value, when compared to other observations.
 
-We can see that "Borrower Rate", "Fico Range" & "Amount Borrowed" are the most important feature on average and these features should be carefully observed in the local explanations for bad loans.
+We can see that "Borrower Rate", "Fico Range" & "Amount Borrowed" are the most important features on average and these should be carefully observed in the local explanations for bad loans.
 
 ![image](results/output/global_bee_plot.png)
 
+## Local Explainations
+Each observation gets its own set of SHAP values. We randomly chose 5 individual observations (see the individual SHAP value plot below). This greatly increases the transparency of our model predictions. We can explain why a case receives its prediction and the contributions of the predictors. Traditional variable importance algorithms only show the results across the entire population but not on each individual case. The local interpretability enables us to pinpoint and contrast the impacts of the factors.
+
+
+<div align="center"> 
+
+**Individual Observation 1**
+<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_0.png" alt="drawing" width="650" height="500"/>
+
+**Individual Observation 2**
+<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_1.png" alt="drawing" width="650" height="500"/>
+
+**Individual Observation 3**
+<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_2.png" alt="drawing" width="650" height="500"/>
+
+**Individual Observation 4**
+<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_3.png" alt="drawing" width="650" height="500"/>
+
+**Individual Observation 5**
+<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_4.png" alt="drawing" width="650" height="500"/>
+</div>
+
+Looking at **individual plot 1**, the amount_borrowed and balance_income indicates that both features are positively correlated with the target variable (bad loan) for individual 1. This means that they have a high (from color red) and positive impact (shown on the x-axis) on predicting that individual 1 loan is not a bad loan.
+
+Alternatively, looking at **individual plot 5**, the model predicted that it is a bad loan when it is actually not a bad loan. The 6 variables in red had a high and positive impact on the prediction. We can see that balance_income had a negative and low impact. The understanding here is that the balance income of individual 5 may be less than his or her monthly payment. Therefore, there is a high chance that the loan will be a bad loan as the individual may default. 
 
 # 6.	Conclusion, Future Work and Ethical concern 
 Predicting the occurrences of bad loans in a peer-to-peer lending platform is crucial and challenging task. More accurate prediction models would be highly beneficial since the failure of a peer-to-peer lending platform could trigger a series of financial risks. Our project shows that machine learning methods have broad application prospects in the prediction of P2P loan default.
