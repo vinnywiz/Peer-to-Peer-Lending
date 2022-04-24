@@ -90,7 +90,7 @@ Listings with bad loan Status using a scatterplot. In yellow it shows the custom
 We can see that a small percentage of customers with bad loans. This is a typical imbalanced dataset where the default rate is much lower than successfully fulfilling their loan obligations. Therefore, machine learning algorithms applied to imbalanced classification datasets can produce biased predictions with misleading accuracies. We will use the SMOTE library to try to mitigate this problem.
 
 To avoid multicollinearity in the data, both numeric and categorical variables exhibiting high degrees of multicollinearity >0.85 were dropped from the dataset. The correlation matrix is displayed below.
-- For example Borrower Rate is highly correlated with Estimated Return, Estimated Loss Rate, Lender Yield & Effective Yeild. We chose to include the Borrower Rate and excluded the other variables that are hihly correlated. 
+- For example Borrower Rate is highly correlated with Estimated Return, Estimated Loss Rate, Lender Yield & Effective Yeild. We chose to include the Borrower Rate and exclude the other variables that are highly correlated. 
 
 ![image](results/correlation_matrix_numbers.png)
 
