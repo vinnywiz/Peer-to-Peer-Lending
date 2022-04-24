@@ -48,20 +48,20 @@ For our initial datasets, we use two separate datasets from [Prosper Marketplace
 
 The second data is the loan data.  The loan data includes actual loan information about applicants whose listings are approved and who received a loan from the Prosper Lending platform. The loan data has information about loan characteristics such as loan interest rate, loan amount, loan maturities, principal payments, balance, etc. 
 
-Additionally, the loan data include our target feature, the loan status column. This column contains information that signifies if a loan is a bad loan (defaulted) or not a bad loan (completed). Some features in the listings and loan data are only relevant after loan issuance and are therefore not available to investors at the time of investing. We used the [Prosper Data Dictionary](https://www.prosper.com/Downloads/Services/Documentation/ProsperDataExport_Details.html) to better understand the features available to investors prior to a loan issuance.
+Additionally, the loan data include our target feature, the loan status column. This column contains information that signifies if a loan is a bad loan (defaulted) or not a bad loan (completed). Some of the features in the listings and loan data are only relevant after loan issuance and are therefore not available to investors at the time of investing. We used the [Prosper Data Dictionary](https://www.prosper.com/Downloads/Services/Documentation/ProsperDataExport_Details.html) to better understand the features available to investors prior to a loan issuance.
 
 # 3.	Methodology 
 
 ![image](results/Design/etl.jpg)
 
 ### a.	Data Preprocessing 
-To begin, we executed a simple exploratory analysis using the data dictionary to find unique key identifiers to merge the listings and loans data. Both datasets have their unique key identifiers however, there is no direct connection between the unique identifiers. We decided to merge the two datasets with 6 common variables **(loan_origination_date, amount_borrowed, borrower_rate, prosper_rating, term, and co_borrower_application)**. We kept only uniquely merged rows as there might be two same borrowers who requested the same amount of loan and received the same loan interest and maturity. We filtered the data to only include loans from 2015 - 2021. After merging we had more that 80% unique rows.
+To begin, we executed a simple exploratory analysis using the data dictionary to find unique key identifiers to merge the listings and loans data. Both datasets have their unique key identifiers however, there is no direct connection between the unique identifiers. We decided to merge the two datasets with 6 common variables **(loan_origination_date, amount_borrowed, borrower_rate, prosper_rating, term, and co_borrower_application)**. We kept only uniquely merged rows as there might be two or more borrowers who requested the same amount of loan and received the same loan interest and maturity. We filtered the data to only include loans from 2015 - 2021. After merging we had more that 80% unique rows. This was good amount of data to train the machine learning model.
 
- Some of features in the data was dropped some based on these conditions;
-  - variables with >50% of missing data 
-  - variables that would introduce data leakage (eg age_in_months)
-  - variables unavailable until loan issuance (eg days_past_due, late_fees_paid)
-  - variables that include only one feature (eg scorex).
+ Other features in the loans and listing data was dropped based on these conditions;
+  - features with >50% of missing data 
+  - features that would introduce data leakage (eg age_in_months)
+  - features unavailable until loan issuance (eg days_past_due, late_fees_paid)
+  - features that include only one value (eg scorex).
 
 
   *Missing Value Imputation*
@@ -73,21 +73,24 @@ We treated the missing values in all remaining features one by one;
 ### b. Data Exploration
 We created several exploratory data analysis plots using seaborn and plotly's Python library in order to build high-level intuition of some of the relationships between different features.
 
-A plot of distribution of borrowed amount by loan term
-(*** add image)
-The distribution is right skewed and also consistent with the fact that more people tend to pay smaller loans quickly
+We plotted the distribution of borrowed amount by loan term. The distribution is right skewed and also consistent with the fact that more people tend to pay smaller loans quickly.
 
-A plot of defaulting customers
-
-We can see that a small percentage of customers are defaulting. This is a typical imbalanced dataset where the default rate is much lower than the successful completed rate. Machine learning algorithms applied to imbalanced classification datasets can produce biased predictions with misleading accuracies. We will use the SMOTE library to try mitigate this problem.
+We also plotted our target binary variable to see it's distribution. We saw that a small percentage of loans are bad loans (defaulting). This is a typical imbalanced dataset where the bad loans is much lower than the not bad loans. Machine learning algorithms applied to imbalanced classification datasets can produce biased predictions with misleading accuracies. We will use the SMOTE library to try mitigate this problem.
 
 
 To avoid multicollinearity in the data, both numeric and categorial variables exhibiting high degrees of multicollinearity >0.85 were dropped from the dataset
 
-![image](results/output/correlation_plot_numbers.png)
+<div align="center">
+<img src="results/output/correlation_plot_numbers.png" alt="drawing" width="800" height="500"/>
+</div>
+
 
 ### c. SMOTE - Synthetic Minority Oversampling Technique
-We use the Synthetic Minority Oversampling Technique (SMOTE), which is a widely adopted approach, to address the class imbalance dataset. SMOTE uses bootstrapping and k-nearest neighnors to construct new minority class instances by transforming data based on feature space (rather than data space) similarities from minority samples. SMOTE performs a combination of oversampling and undersampling to construct a balanced dataset.
+We use the Synthetic Minority Oversampling Technique (SMOTE), which is a widely adopted approach, to address the class imbalance dataset. SMOTE uses bootstrapping and k-nearest neighbors to construct new minority class instances by transforming data based on feature space (rather than data space) similarities from minority samples. SMOTE performs a combination of oversampling and undersampling to construct a balanced dataset.
+
+
+<img src="results/Design/smote.png" alt="drawing" height="90"/>
+
 
 For our puposes we oversmapled the minority class to have 10% the number of examples of the majority class. We then used random undersampling to reduce the number of examples in the majority class to have 80% more than the minority class. Ratios are what works best for your data. We believe this ratio works best for us. As shown below we successfully generated a balanced dataset using smote.
 
@@ -109,7 +112,9 @@ We created two new features EMI (Equated Monthly Installment) and Balance_Income
 
 We visualize the distribution of the newly created feature 'EMI'. The ditribution wasn't so much skewed.
 
-![image](results/output/EDA_Hist_Plot_EMI.png)
+<div align="center">
+<img src="results/output/EDA_Hist_Plot_EMI.png" alt="drawing" width="600" height="500"/>
+</div>
 
 **Balance Income** - This is the income left after the EMI has been paid. The idea behind creating this variable is that if this value is high, the chances are high that a person will repay the loan and hence increasing the chances of loan approval. The distribution of this variable was highly skewed so we took the log transformation of it before feeding it to the machine learning model.
 
