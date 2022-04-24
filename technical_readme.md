@@ -13,14 +13,14 @@
 - Due to restrictions of uploading actual Prosper data. The application is run using randomly regerated dummy data. 
 
 ## Application Design
+
 - **ETL Process**
-  
 ![image](results/Design/etl.jpg)
+
 - **Model Building**
-  
 ![image](results/Design/buildModel.jpg)
+
 - **Model Evaluation**
-  
 ![image](results/Design/buildEvaluate.jpg)
 
 ## How to get started:
@@ -92,8 +92,6 @@ run_pipeline()
     - classification_report.png
         - Shows a heat map of the classification model on a test dataset
         - 8 Classification Reports - Example Classification Report
-  
-            ![image](results/output/XGBoost_smote_classification_report.png)
           - dummy_smote_classification_report.png
           - dummy_no_smote_classification_report.png
           - XGBoost_smote_classification_report.png
@@ -103,19 +101,14 @@ run_pipeline()
           - Logistic_smote_classification_report.png
           - Logistic_no_smote_classification_report.png
     - global_bar_plot.png 
-            ![image](results/output/global_bar_plot.png)
         - Shows global feature importance
     - global_bee_plot.png
-            ![image](results/output/global_bee_plot.png)
         - Shows global feature importance on model output as beeswarm plot 
     - global_summary_plot.png
-            ![image](results/output/global_summary_plot.png)
         - Shows global summary plot as a violin plot
     - XGBoost_Bar_Plot_Local_Explanability_Listing_Id_{0-4}.png
-            ![image](results/output/XGBoost_Bar_Plot_Local_Explanability_Listing_Id_0.png)
         - Shows local explanability of 5 listings
     - Bar_Plot_XGBoost_Local_Explanability_Listing_Id_{0-4}.png
-            ![image](results/output/XGBoost_Local_Explanability_Listing_Id_0.png)
 
 The output provides a summary of the model performance. Currently the application is intended for 4 models. 
 - Logistic Regression
