@@ -24,8 +24,11 @@
     - [Random Forest](#random-forest)
     - [XGBoost Classifier](#xgboost-classifier)
 - [5.   Model Explainability (SHapley Additive exPlanations - SHAP)](#5---model-explainability-shapley-additive-explanations---shap)
-    - [Feature Contributions (force plot)](#feature-contributions-force-plot)
-    - [Global Explanations and Feature Importance](#global-explanations-and-feature-importance)
+  - [Local Explainations](#local-explainations)
+  - [Global Explanations and Feature Importance](#global-explanations-and-feature-importance)
+    - [Bar Plot](#bar-plot)
+    - [Summary Plot](#summary-plot)
+    - [Beeswarm Plot](#beeswarm-plot)
 - [6.	Conclusion and Future Work](#6conclusion-and-future-work)
 - [7.    Refrences](#7----refrences)
 
@@ -202,7 +205,7 @@ Looking at **individual plot 1**, the amount_borrowed and balance_income indicat
 
 Alternatively, looking at **individual plot 5**, the model predicted that it is a bad loan when it is actually not a bad loan. The 6 variables in red had a high and positive impact on the prediction. We can see that balance_income had a negative and low impact. The understanding here is that the balance income of individual 5 may be less than his or her monthly payment. Therefore, there is a high chance that the loan will be a bad loan as the individual may default. 
 
-### Global Explanations and Feature Importance
+## Global Explanations and Feature Importance
 We put local explanations described above together to get a **global explanation**. And because of the axiomatic assumptions of SHAP, global SHAP explanations can be more reliable than other measures. The collective SHAP values can show how much each predictor contributes, either positively or negatively, to the target variable. This is like the variable importance plot but it is able to show the positive or negative relationship for each variable with the target.
 
 ### Bar Plot
