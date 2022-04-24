@@ -102,6 +102,10 @@ For our puposes we oversmapled the minority class to have 10% the number of exam
 <img src="results/output/Bar_Plot_Without_Smote.png" alt="drawing" width="600" height="500"/>
 </div>
 
+
+After SMOTE our data is nearly balanced 
+
+
 <div align="center">
 <img src="results/output/Bar_Plot_With_Smote.png" alt="drawing" width="600" height="500"/>
 </div>
@@ -157,32 +161,45 @@ Of all the true bad-loans the logistic regression model identified 68% of them a
 </div>
 
 ### Random Forest
-Our Random Forest model identified 70% of true bad-loans with a 92% precision. There was a slight improvement in the model accuracy (69%). We also observed a slight improvement in the F1-score (79%). The Random Forest model seems to be the best performing model so far.
+Our Random Forest model identified almost 70% of true bad-loans with a 92% precision. There wasn't much improvement in the model accuracy (68%). We did observe a slight improvement in the F1-score (79%). The Random Forest model seems to be the best performing model so far.
 
 <div align="center">
 <img src="results/output/RandomForest_smote_classification_report.png" alt="drawing" width="650" height="500"/>
 </div>
 
 ### XGBoost Classifier
-The XGBoost model reported an accuracy of 71% (best performing model out of the lot). Of all the true bad-loans this model identified 72% of them and when the loans are predicted to be bad they are bad 92% of the time. The harmonic-mean of the Precision and Recall was 81% of bad-loans. We therefore concluded that the XGBoost is our best performing model to do a model explainability.
+The XGBoost model reported an accuracy of 70% (best performing model out of the lot). Of all the true bad-loans this model identified 72% of them and when the loans are predicted to be bad they are bad 92% of the time. The harmonic-mean of the Precision and Recall was 80% of bad-loans. We therefore concluded that the XGBoost is our best performing model to do a model explainability.
 
 <div align="center">
 <img src="results/output/XGBoost_smote_classification_report.png" alt="drawing" width="650" height="500"/>
 </div>
 
  # 5.   Model Explainability (SHapley Additive exPlanations - SHAP)
-We used the SHAP Python package to interpret our model. SHAP is an increasingly popular method used for interpretable machine learning. SHAP assigns each feature an importance value for a particular prediction. SHAP builds model explanations by asking the same question for every prediction and feature: "How does prediction i change when feature j is removed from the model?" So-called SHAP values are the answers. They quantify the magnitude and direction (positive or negative) of a feature’s effect on a prediction. It is important to point out the SHAP values do not provide causality.
+We used the SHAP Python package to interpret our model. SHAP is an increasingly popular method used for interpretable machine learning. SHAP assigns each feature an importance value for a particular prediction. SHAP builds model explanations by asking the same question for every prediction and feature: "How does prediction *i* change when feature *j* is removed from the model?" So-called SHAP values are the answers. They quantify the magnitude and direction (positive or negative) of a feature’s effect on a prediction. It is important to point out that the SHAP values do not provide causality.
 
 ## Local Explainations
-Each observation gets its own set of SHAP values (see the individual SHAP value plot below). This greatly increases its transparency. We can explain why a case receives its prediction and the contributions of the predictors. Traditional variable importance algorithms only show the results across the entire population but not on each individual case. The local interpretability enables us to pinpoint and contrast the impacts of the factors.
+Each observation gets its own set of SHAP values. We randomly chose 5 individual observations (see the individual SHAP value plot below). This greatly increases the transparency of our model predictions. We can explain why a case receives its prediction and the contributions of the predictors. Traditional variable importance algorithms only show the results across the entire population but not on each individual case. The local interpretability enables us to pinpoint and contrast the impacts of the factors.
 
+**Individual Observation 1**
 <div align="center">
 <img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_0.png" alt="drawing" width="650" height="500"/>
+
+**Individual Observation 2**
 <img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_1.png" alt="drawing" width="650" height="500"/>
+
+**Individual Observation 3**
 <img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_2.png" alt="drawing" width="650" height="500"/>
+
+**Individual Observation 4**
 <img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_3.png" alt="drawing" width="650" height="500"/>
+
+**Individual Observation 5**
 <img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_4.png" alt="drawing" width="650" height="500"/>
 </div>
+
+Looking at individual plot 1, the amount_borrowed and balance_income indicates that both features are positively correlated with the target variable (bad loan) for individual 1. This means that they have a high (from color red) and positive impact (shown on the x-axis) on predicting that individual 1 loan is not a bad loan.
+
+Alternatively, looking at individual plot 5, the model predicted that it is a bad loan when it is actually not a bad loan. The 6 variables in red had a high and positive impact on the prediction. We can see that balance_income had a negative and low impact. The understanding here is that the balance income of individual 5 may be less than his or her monthly payment. Therefore, there is a high chance that the loan will be a bad loan as the individual may default. 
 
 ### Feature Contributions (force plot)
 We used a force plot to summarize how each feature contributes to an individual prediction. The below explanation shows features each contributing to push the model output from the base value (the average model output over the sampled dataset (5000 random samples) we passed) to the model output. Features pushing the prediction higher are shown in red, those pushing the prediction lower are in blue.
