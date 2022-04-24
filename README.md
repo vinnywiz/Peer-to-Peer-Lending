@@ -75,7 +75,7 @@ We created several exploratory data analysis plots using seaborn and plotly's Py
 
 A plot of distribution of borrowed amount by loan term
 
-![image](results/output/EDA_Dist_Plot_amount_borrowed.png)
+![image](results/EDA_Dist_Plot_amount_borrowed.png)
 
 The distribution is right skewed and also consistent with the fact that more people tend to pay smaller loans quickly
 
@@ -87,7 +87,7 @@ We can see that a small percentage of customers are defaulting. This is a typica
 
 To avoid multicollinearity in the data, both numeric and categorial variables exhibiting high degrees of multicollinearity >0.85 were dropped from the dataset
 
-![image](results/output/correlation_matrix_numbers.png)
+![image](results/correlation_matrix_numbers.png)
 
 ### c. SMOTE - Synthetic Minority Oversampling Technique
 We use the Synthetic Minority Oversampling Technique (SMOTE), which is a widely adopted approach, to address the class imbalance dataset. SMOTE uses bootstrapping and k-nearest neighbors to construct new minority class instances by transforming data based on feature space (rather than data space) similarities from minority samples. SMOTE performs a combination of oversampling and undersampling to construct a balanced dataset.
@@ -116,7 +116,7 @@ We created two new features EMI (Equated Monthly Installment) and Balance_Income
 We visualize the distribution of the newly created feature 'EMI'. The ditribution wasn't so much skewed.
 
 <div align="center">
-<img src="results/output/EDA_Hist_Plot_EMI.png" alt="drawing" width="600" height="500"/>
+<img src="results/EDA_Dist_Plot_EMI.png" alt="drawing" width="600" height="500"/>
 </div>
 
 **Balance Income** - This is the income left after the EMI has been paid. The idea behind creating this variable is that if this value is high, the chances are high that a person will repay the loan and hence increasing the chances of loan approval. The distribution of this variable was highly skewed so we took the log transformation of it before feeding it to the machine learning model.
@@ -124,10 +124,10 @@ We visualize the distribution of the newly created feature 'EMI'. The ditributio
 *balance_income = monthly_income - EMI*
 
 <div align="center">
-<img src="results/output/EDA_Hist_Plot_balance.png" alt="drawing" width="600" height="500"/>
+<img src="results/EDA_Hist_Plot_balance.png" alt="drawing" width="600" height="500"/>
 </div>
 <div align="center">
-<img src="results/output/EDA_Hist_Plot_balance_log_balance.png" alt="drawing" width="600" height="500"/>
+<img src="results/EDA_Hist_Plot_balance_log_balance.png" alt="drawing" width="600" height="500"/>
 </div>
 
 
