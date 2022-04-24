@@ -52,7 +52,7 @@ We use two separate datasets from [Prosper Marketplace, Inc](https://www.prosper
 
 The second data is the loan data. The loan data includes actual loan information about applicants whose listings are approved and who received a loan from the Prosper Lending platform. In addition, the loan data has information about loan characteristics such as loan interest rate, loan amount, loan maturities, principal payments, balance, etc. 
 
-The loan data include our target feature, the Loan Status column. This column contains information that signifies if a loan is a bad loan (Defaulted, Charge-off & Cancelled) or not a bad loan (Current & Completed). Some of the features in the listings and loan data are only relevant after loan issuance and are therefore not available to investors at the time of investing. We used the [Prosper Data Dictionary](https://www.prosper.com/Downloads/Services/Documentation/ProsperDataExport_Details.html) to better understand the features available to investors before a loan issuance.
+The loan data include our target feature, the Loan Status column. This column contains information that signifies if a loan is a bad loan (Defaulted, Charge-off & Cancelled) or not a bad loan (Current & Completed). We assumed that our current loans will end up being completed but as part of our future work we intend to relax this assumption. Some of the features in the listings and loan data are only relevant after loan issuance and are therefore not available to investors at the time of investing. We used the [Prosper Data Dictionary](https://www.prosper.com/Downloads/Services/Documentation/ProsperDataExport_Details.html) to better understand the features available to investors before a loan issuance.
 
 # 3.	Methodology 
 
@@ -131,9 +131,6 @@ We visualize the distribution of the newly created feature 'EMI'. The ditributio
 
 *balance_income = monthly_income - EMI*
 
-<div align="center">
-<img src="results/EDA_Hist_Plot_balance.png" alt="drawing" width="600" height="500"/>
-</div>
 <div align="center">
 <img src="results/EDA_Hist_Plot_balance_log_balance.png" alt="drawing" width="600" height="500"/>
 </div>
@@ -243,6 +240,8 @@ Predicting the occurrences of bad loans in a peer-to-peer lending platform is cr
 The performance has only improved slightly through the modeling process but we have removed attributes that could lead to leakage and getting performance that does capture over 60% of the bad loans. There is additional scope for hyperparameter tuning that would allow the model to better classify the loan. 
 
 For future work, we would want to deploy our model and have a real-time machine learning predictions. Futhermore, we plan to include macro economic factors (Inflation, unemployment rate, GDP etc) that highly affect the loan status. This would increase the performance of the current machine learning model. 
+
+Our target feature 'bad loan' has two flags (1-bad loan, 0-not a bad loan). The 'not a bad loan' flag is a combination of (Completed and Current loans). The problem here is that we have no knowledge of whether a current loan will be defaulted in the near future or not. So for our future work, in the training dataset, we would want to remove the current loan data and only include current loans in our test data. There are potential side effects to this as we would be excluding a large number of recently opened loans in our training process.  
 
 Futhermore, we plan to develop a dashboard to help investors to examine listing applications more in-depth. With the dashboard, it would work as a support info along with current FICO score and other indicators. 
 
