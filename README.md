@@ -141,28 +141,50 @@ The XGBoost model reported an accuracy of 71% (best performing model out of the 
 
 ![image](results/output/classification_report.png)
 
+
  # 5.   Model Explainability (SHapley Additive exPlanations - SHAP)
-We used the SHAP Python package to interpret our model. SHAP is an increasingly popular method used for interpretable machine learning.
+We used the SHAP Python package to interpret our model. SHAP is an increasingly popular method used for interpretable machine learning.SHAP assigns each feature an importance value for a particular prediction.SHAP builds model explanations by asking the same question for every prediction and feature: “How does prediction i change when feature j is removed from the model?” So-called SHAP values are the answers. They quantify the magnitude and direction (positive or negative) of a feature’s effect on a prediction.
+
+Linear models, for example, can use their coefficients as a metric for the overall importance of each feature, but they are scaled with the scale of the variable itself, which might lead to distortions and misinterpretations. Also, the coefficient cannot account for the local importance of the feature, and how it changes with lower or higher values. The same can be said for feature importances of tree-based models, and this is why SHAP is useful for interpretability of models.Since we are using XGBoost and we could achieve higher accuracy with this complex model. So we use Shap for the model explainability.
+
+## Local Explainations
+Each observation gets its own set of SHAP values (see the individual SHAP value plot below). This greatly increases its transparency. We can explain why a case receives its prediction and the contributions of the predictors. Traditional variable importance algorithms only show the results across the entire population but not on each individual case. The local interpretability enables us to pinpoint and contrast the impacts of the factors.
+
 ### Feature Contributions (force plot)
-We used a force plot to summarize how each feature contributes to an individual prediction. (insert force plot image and add explanation)
+We used a force plot to summarize how each feature contributes to an individual prediction.The below explanation shows features each contributing to push the model output from the base value (the average model output over the sampled dataset (5000 random samples) we passed) to the model output. Features pushing the prediction higher are shown in red, those pushing the prediction lower are in blue.
 
-![image](results/output/Local_Explanability_Listing_Id_0.png)
-
-![image](results/output/Local_Explanability_Listing_Id_1.png)
-
-![image](results/output/Local_Explanability_Listing_Id_2.png)
-
-![image](results/output/Local_Explanability_Listing_Id_3.png)
-
-![image](results/output/Local_Explanability_Listing_Id_4.png)
-
-### Global Explanations and Feature Importance
-We put local explanations described above together to get a **global explanation**. And because of the axiomatic assumptions of SHAP, global SHAP explanations can be more reliable that other measures. (insert global plot image and add explanation)
-
-![image](results/output/global_bar_plot.png)
+The prediction is the probability that the loan is the Bad Loan.Red arrows represent feature effects (SHAP values) that drive the prediction value higher while blue arrows are those effects that drive the prediction value lower. Each arrow’s size represents the magnitude of the corresponding feature’s effect. The “base value” (see the grey print towards the upper-left of the image) marks the model’s average prediction over the sampled Test set.
+We can see that lower Funding Threshold,prosper_rate and EMI have positive or increased impact and higher monthly payment have negative or decreased impact on the prediction.
 
 
-![image](results/output/global_bee_plot.png)
+### Bar Plot
+This plot shows us what are the main features affecting the prediction of a single observation, 
+and the magnitude of the SHAP value for each feature.The bar plot centers at zero and shows the contributions of features,feature values are show in gray to the left of the feature names.
+So we saw that positive values Fico_range,Borrower_Rate,Funding Threshold has higher impact on prediction where as
+
+### Waterfall plot
+The waterfall plot has the same information, represented in a different manner.
+Here we can see how the sum of all the SHAP values equals the difference between the prediction f(x) and the expected value E[f(x)].
+Waterfall plots are designed to display explanations for individual predictions, so they expect a single row of an Explanation object as input. The bottom of a waterfall plot starts as the expected value of the model output, and then each row shows how the positive (red) or negative (blue) contribution of each feature moves the value from the expected model output over the background dataset to the model output for this prediction.
+We could notice that a higher value of the " "  has a high and positive impact on the quality rating. The “high” comes from the pink color, and the “positive” impact is shown on the X-axis. Similarly, we will say the " " is negatively correlated with the target variable.
+
+Note that by default SHAP explains XGBoost classifer models in terms of their margin output, before the logistic link function. That means the units on the x-axis are log-odds units, so negative values imply probabilies of less than 0.5 that the loan is a bad loan.The units on the x-axis in the waterfall plot are log-odds units but not probability.You can convert the log-odd to a probability of [0,1] by using the logistic sigmoid function, which is expit(x) = 1/(1+exp(-x)).
+
+
+## Global Explanations and Feature Importance
+
+We put local explanations described above together to get a **global explanation**. And because of the axiomatic assumptions of SHAP, global SHAP explanations can be more reliable that other measures. The collective SHAP values can show how much each predictor contributes, either positively or negatively, to the target variable. This is like the variable importance plot but it is able to show the positive or negative relationship for each variable with the target. 
+
+### Bar Plot
+
+Here the features are ordered from the highest to the lowest effect on the prediction.
+It takes in account the absolute SHAP value,so it does not matter if the feature affects the prediction in a positive or negative way.
+
+### Summary Plot 
+The SHAP value  Summary plot can further show the positive and negative relationships of the predictors with the target variable.
+
+### Beeswarm Plot
+On the beeswarm the features are also ordered by their effect on prediction, but we can also see how higher and lower values of the feature will affect the result. All the little dots on the plot represent a single observation. The horizontal axis represents the SHAP value, while the color of the point shows us if that observation has a higher or a lower value, when compared to other observations.
 
 
 # 6.	Conclusion and Future Work 
