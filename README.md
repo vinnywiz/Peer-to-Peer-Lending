@@ -51,6 +51,9 @@ The second data is the loan data.  The loan data includes actual loan informatio
 Additionally, the loan data include our target feature, the loan status column. This column contains information that signifies if a loan is a bad loan (defaulted) or not a bad loan (completed). Some features in the listings and loan data are only relevant after loan issuance and are therefore not available to investors at the time of investing. We used the [Prosper Data Dictionary](https://www.prosper.com/Downloads/Services/Documentation/ProsperDataExport_Details.html) to better understand the features available to investors prior to a loan issuance.
 
 # 3.	Methodology 
+
+![image](results/Design/etl.jpg)
+
 ### a.	Data Preprocessing 
 To begin, we executed a simple exploratory analysis using the data dictionary to find unique key identifiers to merge the listings and loans data. Both datasets have their unique key identifiers however, there is no direct connection between the unique identifiers. We decided to merge the two datasets with 6 common variables **(loan_origination_date, amount_borrowed, borrower_rate, prosper_rating, term, and co_borrower_application)**. We kept only uniquely merged rows as there might be two same borrowers who requested the same amount of loan and received the same loan interest and maturity. We filtered the data to only include loans from 2015 - 2021. After merging we had more that 80% unique rows.
 
@@ -119,6 +122,9 @@ Above we can see the distribution of the balance income before and after log tra
 ### c.	Machine Learning Models 
 To be able to truly understand and then improve our model’s performance, we established a baseline for the data that we have. We employed a **dummy classifier** as our baseline model. This classifier serves as a simple baseline to compare against other more complex classifiers. The other models we were interested in testing for this problem were **Logistic Regression, Random Forest, and XGBoost classifier.** For our Random Forest and XGBoost classifier we used grid search to get the optimized values of hyper parameters. We observed the performance of our models through the confusion matrix plot and the model classification report (our interest was Accuracy, Precision, Recall, and F1-score). We primarily care about correctly identifying **bad loans**, so the **recall score** will be of much importance. To show the performance of our model, we graphically depicted the Area under the ROC Curve (AUC). By analogy, the Higher the AUC, the better the model is at distinguishing between customers who will default or not.
 
+![image](results/Design/buildModel.jpg)
+
+
 # 4.	Results and Discussion 
 ### Dummy Classifier
 As we stated earlier, the dummy classifier was to just have a baseline to compare our model with. When loans are predicted to be bad they are bad 86% of the time. Of all the true bad-loans this model identified 50% of them. We observed an F1-score of 63% for bad loans.
@@ -148,6 +154,17 @@ We used the SHAP Python package to interpret our model. SHAP is an increasingly 
 ## Local Explainations
 Each observation gets its own set of SHAP values (see the individual SHAP value plot below). This greatly increases its transparency. We can explain why a case receives its prediction and the contributions of the predictors. Traditional variable importance algorithms only show the results across the entire population but not on each individual case. The local interpretability enables us to pinpoint and contrast the impacts of the factors.
 
+![image](results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_0.png)
+
+![image](results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_1.png)
+
+![image](results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_2.png)
+
+
+![image](results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_3.png)
+
+![image](results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_4.png)
+
 ### Feature Contributions (force plot)
 We used a force plot to summarize how each feature contributes to an individual prediction. The below explanation shows features each contributing to push the model output from the base value (the average model output over the sampled dataset (5000 random samples) we passed) to the model output. Features pushing the prediction higher are shown in red, those pushing the prediction lower are in blue.
 
@@ -173,14 +190,15 @@ We put local explanations described above together to get a **global explanation
 Here the features are ordered from the highest to the lowest effect on the prediction.
 It takes in account the absolute SHAP value,so it does not matter if the feature affects the prediction in a positive or negative way.
 
+![image](results/output/global_bar_plot.png)
+
 ### Summary Plot
 The SHAP value  Summary plot can further show the positive and negative relationships of the predictors with the target variable.
 
+![image](results/output/global_summary_plot.png)
+
 ### Beeswarm Plot
 On the beeswarm the features are also ordered by their effect on prediction, but we can also see how higher and lower values of the feature will affect the result. All the little dots on the plot represent a single observation. The horizontal axis represents the SHAP value, while the color of the point shows us if that observation has a higher or a lower value, when compared to other observations.
-
-![image](results/output/global_bar_plot.png)
-
 
 ![image](results/output/global_bee_plot.png)
 
