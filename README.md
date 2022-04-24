@@ -129,25 +129,25 @@ To be able to truly understand and then improve our model’s performance, we es
 ### Dummy Classifier
 As we stated earlier, the dummy classifier was to just have a baseline to compare our model with. When loans are predicted to be bad they are bad 86% of the time. Of all the true bad-loans this model identified 50% of them. We observed an F1-score of 63% for bad loans.
 
-<img src="(results/output/dummy_smote_classification_report.png" alt="drawing" width="600" height="500"/>
+<img src="results/output/dummy_smote_classification_report.png" alt="drawing" width="600" height="500"/>
 
 
 ### Logistic regression 
 Of all the true bad-loans the logistic regression model identified 68% of them and when the loans are predicted to be bad they are bad 92% of the time. By comparing with our baseline model we saw an improvement in the model performance. An F1-score of 78% was observed for bad loans. The model had an accuracy of 68%.
 
-<img src="(results/output/Logistic_smote_classification_report.png" alt="drawing" width="600" height="500"/>
+<img src="results/output/Logistic_smote_classification_report.png" alt="drawing" width="650" height="500"/>
 
 
 ### Random Forest
 Our Random Forest model identified 70% of true bad-loans with a 92% precision. There was a slight improvement in the model accuracy (69%). We also observed a slight improvement in the F1-score (79%). The Random Forest model seems to be the best performing model so far.
 
-<img src="results/output/RandomForest_smote_classification_report.png" alt="drawing" width="600" height="500"/>
+<img src="results/output/RandomForest_smote_classification_report.png" alt="drawing" width="650" height="500"/>
 
 
 ### XGBoost Classifier
 The XGBoost model reported an accuracy of 71% (best performing model out of the lot). Of all the true bad-loans this model identified 72% of them and when the loans are predicted to be bad they are bad 92% of the time. The harmonic-mean of the Precision and Recall was 81% of bad-loans. We therefore concluded that the XGBoost is our best performing model to do a model explainability.
 
-<img src="results/output/XGBoost_smote_classification_report.png" alt="drawing" width="600" height="500"/>
+<img src="results/output/XGBoost_smote_classification_report.png" alt="drawing" width="650" height="500"/>
 
 
  # 5.   Model Explainability (SHapley Additive exPlanations - SHAP)
@@ -156,15 +156,15 @@ We used the SHAP Python package to interpret our model. SHAP is an increasingly 
 ## Local Explainations
 Each observation gets its own set of SHAP values (see the individual SHAP value plot below). This greatly increases its transparency. We can explain why a case receives its prediction and the contributions of the predictors. Traditional variable importance algorithms only show the results across the entire population but not on each individual case. The local interpretability enables us to pinpoint and contrast the impacts of the factors.
 
-<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_0.png" alt="drawing" width="500" height="500"/>
+<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_0.png" alt="drawing" width="650" height="500"/>
 
-<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_1.png" alt="drawing" width="500" height="500"/>
+<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_1.png" alt="drawing" width="650" height="500"/>
 
-<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_2.png" alt="drawing" width="500" height="500"/>
+<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_2.png" alt="drawing" width="650" height="500"/>
 
-<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_3.png" alt="drawing" width="500" height="500"/>
+<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_3.png" alt="drawing" width="650" height="500"/>
 
-<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_4.png" alt="drawing" width="500" height="500"/>
+<img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_4.png" alt="drawing" width="650" height="500"/>
 
 
 ### Feature Contributions (force plot)
