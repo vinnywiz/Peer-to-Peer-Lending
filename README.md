@@ -198,9 +198,9 @@ Each observation gets its own set of SHAP values. We randomly chose 5 individual
 <img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_4.png" alt="drawing" width="650" height="500"/>
 </div>
 
-Looking at *individual plot 1*, the amount_borrowed and balance_income indicates that both features are positively correlated with the target variable (bad loan) for individual 1. This means that they have a high (from color red) and positive impact (shown on the x-axis) on predicting that individual 1 loan is not a bad loan.
+Looking at **individual plot 1**, the amount_borrowed and balance_income indicates that both features are positively correlated with the target variable (bad loan) for individual 1. This means that they have a high (from color red) and positive impact (shown on the x-axis) on predicting that individual 1 loan is not a bad loan.
 
-Alternatively, looking at *individual plot 5*, the model predicted that it is a bad loan when it is actually not a bad loan. The 6 variables in red had a high and positive impact on the prediction. We can see that balance_income had a negative and low impact. The understanding here is that the balance income of individual 5 may be less than his or her monthly payment. Therefore, there is a high chance that the loan will be a bad loan as the individual may default. 
+Alternatively, looking at **individual plot 5**, the model predicted that it is a bad loan when it is actually not a bad loan. The 6 variables in red had a high and positive impact on the prediction. We can see that balance_income had a negative and low impact. The understanding here is that the balance income of individual 5 may be less than his or her monthly payment. Therefore, there is a high chance that the loan will be a bad loan as the individual may default. 
 
 ### Global Explanations and Feature Importance
 We put local explanations described above together to get a **global explanation**. And because of the axiomatic assumptions of SHAP, global SHAP explanations can be more reliable than other measures. The collective SHAP values can show how much each predictor contributes, either positively or negatively, to the target variable. This is like the variable importance plot but it is able to show the positive or negative relationship for each variable with the target.
