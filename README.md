@@ -180,9 +180,9 @@ We used the SHAP Python package to interpret our model. SHAP is an increasingly 
 ## Local Explainations
 Each observation gets its own set of SHAP values. We randomly chose 5 individual observations (see the individual SHAP value plot below). This greatly increases the transparency of our model predictions. We can explain why a case receives its prediction and the contributions of the predictors. Traditional variable importance algorithms only show the results across the entire population but not on each individual case. The local interpretability enables us to pinpoint and contrast the impacts of the factors.
 
-<div align="center">
-
 **Individual Observation 1**
+<div align="center"> 
+
 <img src="results/output/Bar_Plot_XGBoost_Local_Explanability_Listing_Id_0.png" alt="drawing" width="650" height="500"/>
 
 **Individual Observation 2**
