@@ -55,7 +55,7 @@ Additionally, the loan data include our target feature, the loan status column. 
 ![image](results/Design/etl.jpg)
 
 ### a.	Data Preprocessing 
-To begin, we executed a simple exploratory analysis using the data dictionary to find unique key identifiers to merge the listings and loans data. Both datasets have their unique key identifiers however, there is no direct connection between the unique identifiers. We decided to merge the two datasets with 6 common variables **(loan_origination_date, amount_borrowed, borrower_rate, prosper_rating, term, and co_borrower_application)**. We kept only uniquely merged rows as there might be two same borrowers who requested the same amount of loan and received the same loan interest and maturity. We filtered the data to only include loans from 2015 - 2021. After merging we had more that 80% unique rows.
+To begin, we executed a simple exploratory analysis using the data dictionary to find unique key identifiers to merge the listings and loans data. Both datasets have their unique key identifiers however, there is no direct connection between the unique identifiers. We decided to merge the two datasets with 6 common variables **(loan_origination_date, amount_borrowed, borrower_rate, prosper_rating, term, and co_borrower_application)**. We kept only uniquely merged rows as there might be two same borrowers who requested the same amount of loan and received the same loan interest and maturity. We filtered the data to only include loans from 2015 - 2021. After merging we had more that 80% unique matches between the 2 sources.
 
  Some of features in the data was dropped some based on these conditions;
   - variables with >50% of missing data 
@@ -74,17 +74,20 @@ We treated the missing values in all remaining features one by one;
 We created several exploratory data analysis plots using seaborn and plotly's Python library in order to build high-level intuition of some of the relationships between different features.
 
 A plot of distribution of borrowed amount by loan term
-(*** add image)
+
+![image](results/output/EDA_Dist_Plot_amount_borrowed.png)
+
 The distribution is right skewed and also consistent with the fact that more people tend to pay smaller loans quickly
 
 A plot of defaulting customers
 
-We can see that a small percentage of customers are defaulting. This is a typical imbalanced dataset where the default rate is much lower than the successful completed rate. Machine learning algorithms applied to imbalanced classification datasets can produce biased predictions with misleading accuracies. We will use the SMOTE library to try mitigate this problem.
+![image](results/output/Scatter_Plot_Without_Smote.png)
 
+We can see that a small percentage of customers are defaulting. This is a typical imbalanced dataset where the default rate is much lower than the successful completed rate. Machine learning algorithms applied to imbalanced classification datasets can produce biased predictions with misleading accuracies. We will use the SMOTE library to try mitigate this problem.
 
 To avoid multicollinearity in the data, both numeric and categorial variables exhibiting high degrees of multicollinearity >0.85 were dropped from the dataset
 
-![image](results/output/correlation_plot_numbers.png)
+![image](results/output/correlation_matrix_numbers.png)
 
 ### c. SMOTE - Synthetic Minority Oversampling Technique
 We use the Synthetic Minority Oversampling Technique (SMOTE), which is a widely adopted approach, to address the class imbalance dataset. SMOTE uses bootstrapping and k-nearest neighnors to construct new minority class instances by transforming data based on feature space (rather than data space) similarities from minority samples. SMOTE performs a combination of oversampling and undersampling to construct a balanced dataset.
@@ -98,6 +101,10 @@ For our puposes we oversmapled the minority class to have 10% the number of exam
 <div align="center">
 <img src="results/output/Bar_Plot_With_Smote.png" alt="drawing" width="600" height="500"/>
 </div>
+
+![image](results/output/Bar_Plot_Without_Smote.png)
+
+![image](results/output/Bar_Plot_With_Smote.png)
 
 
 ### d.	Feature Engineering
