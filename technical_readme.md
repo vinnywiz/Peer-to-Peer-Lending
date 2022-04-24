@@ -2,7 +2,7 @@
 - [Application Design](#application-design)
 - [How to get started:](#how-to-get-started)
 - [2. Dummy Data](#2-dummy-data)
-- [**Dummy Data - Skip to Step 6**](#dummy-data---skip-to-step-6)
+  - [a. If Using Dummy Data - Skip to Step 6](#a-if-using-dummy-data---skip-to-step-6)
 - [3. Real Data](#3-real-data)
 - [4. Updates to application](#4-updates-to-application)
 - [5. Run updated code.](#5-run-updated-code)
@@ -43,7 +43,7 @@ python
 from p2p_lend.run_pipeline import run_pipeline
 run_pipeline()
 ```
-## **Dummy Data - Skip to Step 6**
+### a. If Using Dummy Data - Skip to Step 6
 
 ## 3. Real Data
 - The real data needs to be downloaded from Prosper Website. 
