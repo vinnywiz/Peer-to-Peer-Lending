@@ -204,22 +204,7 @@ Each observation gets its own set of SHAP values. We randomly chose 5 individual
 
 Looking at *individual plot 1*, the amount_borrowed and balance_income indicates that both features are positively correlated with the target variable (bad loan) for individual 1. This means that they have a high (from color red) and positive impact (shown on the x-axis) on predicting that individual 1 loan is not a bad loan.
 
-<<<<<<< HEAD
 Alternatively, looking at *individual plot 5*, the model predicted that it is a bad loan when it is actually not a bad loan. The 6 variables in red had a high and positive impact on the prediction. We can see that balance_income had a negative and low impact. The understanding here is that the balance income of individual 5 may be less than his or her monthly payment. Therefore, there is a high chance that the loan will be a bad loan as the individual may default. 
-=======
-### Waterfall plot
-The waterfall plot has the same information, represented differently.
-Here we can see how the sum of all the SHAP values equals the difference between the prediction f(x) and the expected value E[f(x)].
-Waterfall plots are designed to display explanations for individual predictions, so they expect a single row of an Explanation object as input. The bottom of a waterfall plot starts as the expected value of the model output. Then each row shows how the positive (pink) or negative (blue) contribution of each feature moves the value from the expected model output over the background dataset to the model output for this prediction.
-We could notice that a higher value of the " "  has a high and positive impact on the quality rating. The “high” comes from the pink color, and the “positive” impact is shown on the X-axis. Similarly, we will say the " " is negatively correlated with the target variable.
-Note that SHAP explains XGBoost classifier models in terms of their margin output before the logistic link function. That means the units on the x-axis are log-odds units, so negative values imply probabilities of less than 0.5 that the loan is a bad loan. The units on the x-axis in the waterfall plot are log-odds units but not a probability.You can convert the log-odd to a probability of [0,1] by using the logistic sigmoid function, which is expit(x) = 1/(1+exp(-x)).
-
-
-### Bar Plot
-This plot shows us what are the main features affecting the prediction of a single observation,
-and the magnitude of the SHAP value for each feature.The bar plot centers at zero and shows the contributions of features,feature values are show in gray to the left of the feature names.
-So we saw that positive values Fico_range,Borrower_Rate,Funding Threshold has higher impact on prediction where as
->>>>>>> c37fc3f6fd9795de2e0e58be1f0e91938b71e5dd
 
 ### Global Explanations and Feature Importance
 We put local explanations described above together to get a **global explanation**. And because of the axiomatic assumptions of SHAP, global SHAP explanations can be more reliable than other measures. The collective SHAP values can show how much each predictor contributes, either positively or negatively, to the target variable. This is like the variable importance plot but it is able to show the positive or negative relationship for each variable with the target.
