@@ -163,7 +163,7 @@ Of all the true bad loans, the logistic regression model identified 63% of them,
 </div>
 
 ### Random Forest
-Our Random Forest model identified almost 61% of true bad-loans with a 24% precision. There wasn't much improvement in the model accuracy (68%). We also didn't observe an improvement in the F1-score (79%). The Random Forest model seems to be the best performing model so far.
+Our Random Forest model identified almost 61% of true bad-loans with a 24% precision. There wasn't much improvement in the model accuracy (68%). We also didn't observe an improvement in the F1-score (35%). The Random Forest model seems to be the best performing model so far.
 
 <div align="center">
 <img src="results/output/RandomForest_smote_classification_report.png" alt="drawing" width="650" height="500"/>
