@@ -96,7 +96,7 @@ We use the Synthetic Minority Oversampling Technique (SMOTE), which is a widely 
 <img src="results/Design/smote.png" alt="drawing"/>
 
 
-For our puposes we oversmapled the minority class to have 10% the number of examples of the majority class. We then used random undersampling to reduce the number of examples in the majority class to have 80% more than the minority class. Ratios are what works best for your data. We believe this ratio works best for us. As shown below we successfully generated a balanced dataset using smote.
+For our puposes we oversmapled the minority class to have 20% the number of examples of the majority class. We then used random undersampling to reduce the number of examples in the majority class to have 80% more than the minority class. Ratios are what works best for your data. We believe this ratio works best for us. As shown below we successfully generated a balanced dataset using smote.
 
 <div align="center">
 <img src="results/output/Bar_Plot_Without_Smote.png" alt="drawing" width="600" height="500"/>
@@ -147,28 +147,28 @@ To be able to understand and then improve our model’s performance truly, we es
 
 # 4.	Results and Discussion 
 ### Dummy Classifier
-As we stated earlier, the dummy classifier was just to have a baseline to compare our model with. When loans are predicted to be bad, they are wrong 86% of the time. Of all the actual bad loans, this model identified 50% of them. We observed an F1-score of 63% for bad loans.
+As we stated earlier, the dummy classifier was just to have a baseline to compare our model with. When loans are predicted to be bad, they are wrong 86% of the time. Of all the actual bad loans, this model identified 50% of them. We observed an F1-score of 22% for bad loans.
 
 <div align="center">
 <img src="results/output/dummy_smote_classification_report.png" alt="drawing" width="600" height="500"/>
 </div>
 
 ### Logistic regression 
-Of all the true bad loans, the logistic regression model identified 68% of them, and when the loans are predicted to be bad, they are bad 92% of the time. By comparing with our baseline model, we saw an improvement in the model performance. An F1-score of 78% was observed for bad loans. The model had an accuracy of 68%.
+Of all the true bad loans, the logistic regression model identified 63% of them, and when the loans are predicted to be bad, they are bad 24% of the time. By comparing with our baseline model, we saw a slight improvement in the model performance. An F1-score of 35% was observed for bad loans. The model had an accuracy of 68%.
 
 <div align="center">
 <img src="results/output/Logistic_smote_classification_report.png" alt="drawing" width="650" height="500"/>
 </div>
 
 ### Random Forest
-Our Random Forest model identified almost 70% of true bad-loans with a 92% precision. There wasn't much improvement in the model accuracy (68%). We did observe a slight improvement in the F1-score (79%). The Random Forest model seems to be the best performing model so far.
+Our Random Forest model identified almost 61% of true bad-loans with a 24% precision. There wasn't much improvement in the model accuracy (68%). We also didn't observe an improvement in the F1-score (79%). The Random Forest model seems to be the best performing model so far.
 
 <div align="center">
 <img src="results/output/RandomForest_smote_classification_report.png" alt="drawing" width="650" height="500"/>
 </div>
 
 ### XGBoost Classifier
-The XGBoost model reported an accuracy of 70% (best performing model out of the lot). Of all the true bad-loans this model identified 72% of them and when the loans are predicted to be bad they are bad 92% of the time. The harmonic-mean of the Precision and Recall was 80% of bad-loans. We therefore concluded that the XGBoost is our best performing model to do a model explainability.
+The XGBoost model reported an accuracy of 70% (best performing model out of the lot). Of all the true bad-loans this model identified 62% of them and when the loans are predicted to be bad they are bad 26% of the time. The harmonic-mean of the Precision and Recall was 36% of bad-loans. We therefore concluded that the XGBoost is our best performing model to do a model explainability.
 
 <div align="center">
 <img src="results/output/XGBoost_smote_classification_report.png" alt="drawing" width="650" height="500"/>
@@ -236,7 +236,9 @@ We can see that "borrower_rate" is the most important feature on average, and th
 # 6.	Conclusion and Future Work 
 Predicting the occurrences of bad loans in a peer-to-peer lending platform is crucial and challenging task. More accurate prediction models would be highly beneficial since the failure of a peer-to-peer lending platform could trigger a series of financial risks. Our project shows that machine learning methods have broad application prospects in the prediction of P2P loan default.
 
-For future work, we would want to deploy our model and have a real-time machine learning predictions. Also, we plan to include macro economic factors (Inflation, unemployment rate, GDP etc) that highly affect a loan. We think this would increase the performance of the current machine learning model. 
+The performance has only improved slightly through the modeling process but we have removed attributes that could lead to leakage and getting performance that does capture over 60% of the bad loans. There is additional scope for hyperparameter tuning that would allow the model to better classify the loan. 
+
+For future work, we would want to deploy our model and have a real-time machine learning predictions. Futhermore, we plan to include a macro economic factors (Inflation, unemployment rate, GDP etc) that highly affect the loan status. This would increase the performance of the current machine learning model. 
 
 Futhermore, we plan to develop a dashboard to help investors to examine listing applications more in-depth. With the dashboard, it would work as a support info along with current FICO score and other indicators. 
 
