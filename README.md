@@ -255,16 +255,19 @@ We can see that in **Individual 7** the normalized feature value for "Borrower_R
 
 
 # 6.	Conclusion, Future Work and Ethical concern 
+Conclusion:
 Predicting the occurrences of bad loans in a peer-to-peer lending platform is crucial and challenging task. More accurate prediction models would be highly beneficial since the failure of a peer-to-peer lending platform could trigger a series of financial risks. Our project shows that machine learning methods have broad application prospects in the prediction of P2P loan default.
 
-The performance has only improved slightly through the modeling process but we have removed attributes that could lead to leakage and getting performance that does capture over 60% of the bad loans. There is additional scope for hyperparameter tuning that would allow the model to better classify the loan. 
+Although the performance has only improved slightly through the modeling process, we have removed attributes that could lead to data leakage and capturing over 60% of the bad loans.
 
-For future work, we would want to deploy our model and have a real-time machine learning predictions. Futhermore, we plan to include macro economic factors (Inflation, unemployment rate, GDP etc) that highly affect the loan status. This would increase the performance of the current machine learning model. 
+Future work:
+1. Deploy a model with real-time machine learning predictions dependent on prosper API to feed new listings. Our model is based only on the historical data as there are constant changes in the financial climate we would like to utilize the latest information to predict the listing outcome. 
+2. Resample our training and test datasets. Bad Loan Status field is currently a binary class. '0' represents both Completed and Current loans. The problem here is that we have no knowledge of whether a current loan will be defaulted in the near future or not. So for our future work, in the training dataset, we would want to remove the current loan data and only include current loans in our test data. There are potential side effects to this as we would be excluding a large number of recently opened loans in our training process.
+3. Include macro economic factors (inflation, unemployment rate, GDP etc) that highly affect the listing status. This can increase the performance of the current machine learning model. 
+4. Display the actual feature values on the local waterfall explanations. This would help to explain the feature impact in real terms instead of a normalized value.
+5. Develop a dashboard to help investors in examine listing applications more in-depth. These would work as a support information along with current FICO score and other indicators. 
 
-Another improvement would be with our target feature 'bad loan' (1-bad loan, 0-not a bad loan). The 'not a bad loan' is a combination of (Completed and Current loans). The problem here is that we have no knowledge of whether a current loan will be defaulted in the near future or not. So for our future work, in the training dataset, we would want to remove the current loan data and only include current loans in our test data. There are potential side effects to this as we would be excluding a large number of recently opened loans in our training process.
-
-Futhermore, we plan to develop a dashboard to help investors to examine listing applications more in-depth. The current shap values are normalized but for  display on the dashboard we would like to have the original values for each of the features. These would work as a support information along with current FICO score and other indicators. 
-
+Ethical Concerns:
 For our project analysis, we do not disclose any individual information about loan applicants in our visualization and outcomes. We carefully consider that our model would not discriminate loan applications based on racial, ethnicity group identifications. We have chosen features that can be generalized to produce our outcome. 
 
 # 7.    Refrences 
