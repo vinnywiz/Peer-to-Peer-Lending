@@ -106,11 +106,6 @@ For our puposes we oversmapled the minority class to have 10% the number of exam
 <img src="results/output/Bar_Plot_With_Smote.png" alt="drawing" width="600" height="500"/>
 </div>
 
-![image](results/output/Bar_Plot_Without_Smote.png)
-
-![image](results/output/Bar_Plot_With_Smote.png)
-
-
 ### d.	Feature Engineering
 We created two new features EMI (Equated Monthly Installment) and Balance_Income.
 
