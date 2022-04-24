@@ -83,7 +83,7 @@ A plot of distribution of borrowed amount by loan term
 
 The distribution is right skewed and also consistent with the fact that more people tend to pay smaller loans quickly
 
-A plot of defaulting customers
+A plot of listings with Bad Loan Status. The below scatterplot shows in Yellow the customers who have a Bad Loan in yellow. They represent a very small population size. 
 
 ![image](results/output/Scatter_Plot_Without_Smote.png)
 
