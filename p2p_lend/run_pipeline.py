@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 import warnings
 warnings.filterwarnings("ignore")
 
-def run_pipeline(dummy=True, apply_smote=True, model_type='XGBoost',data_path='data', output_path='results'):
+def run_pipeline(dummy=False, apply_smote=True, model_type='XGBoost',data_path='data', output_path='results'):
 
     if dummy:
         logger.info("Running ETL with dummy data")
@@ -22,5 +22,5 @@ def run_pipeline(dummy=True, apply_smote=True, model_type='XGBoost',data_path='d
     logger.info("Model build complete")
 
     logger.info("Evaluating model performance")
-    run_model_evaluation(data_path=data_path, use_dummy=dummy, output_path=output_path)
+    run_model_evaluation(data_path=data_path, use_dummy=dummy, output_path=output_path, model_type=model_type, apply_smote=True)
     logger.info(f'Model evaluation output to path={output_path}')

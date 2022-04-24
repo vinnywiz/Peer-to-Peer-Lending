@@ -38,6 +38,7 @@ def run_model_build(model_type="Logistic", data_path=None, apply_smote=None, use
     # Factorize columns
     processed_df = factorize_loan_listing_data(processed_df)
     write_data_frame_for_analysis(processed_df, use_dummy=use_dummy, data_path=data_path)
+    all_columns = processed_df.columns
     # Train Test Split data
     X = processed_df.drop(model_y_column, axis=1).copy()
     X_features = X.columns
@@ -49,12 +50,16 @@ def run_model_build(model_type="Logistic", data_path=None, apply_smote=None, use
     scaler = RobustScaler(copy=True) # robust scaler takes care of outliers better  
     X_train = scaler.fit_transform(X_train)
     X_test = scaler.fit_transform(X_test)
+    scatter_plot('Scatter_Plot_Without_Smote.png', 'Without Smote' ,X_train, y_train)
+    bar_plot('Bar_Plot_Without_Smote.png', 'Without Smote' ,X_train, y_train)
     # Apply SMOTE sampling
     if apply_smote and (not (use_dummy)):
         print('applied_smote')
         X_train, y_train = resample_using_SMOTE(X_train, y_train)
     # Build Model
     #print(X_train.shape, y_train.shape)
+    scatter_plot('Scatter_Plot_With_Smote.png', 'With Smote' ,X_train, y_train)
+    bar_plot('Bar_Plot_With_Smote.png', 'With Smote' ,X_train, y_train)
     sk_model = run_model(X_train, y_train,X_test, y_test, model_type=model_type)
     # Save Model
     save_trained_model(sk_model=sk_model, X_test=X_test, y_test=y_test, data_path=data_path, use_dummy=use_dummy, X_features = X_features)
@@ -98,7 +103,10 @@ def factorize_loan_listing_data(X):
     # make dummy variables for categorical columns for logistic regression
     X = pd.get_dummies(X)
     # scale co_borrower to 1 and 0
-    X['co_borrower_application'] = np.where(X['co_borrower_application']==True, 1, 0)
+    try:
+        X['co_borrower_application'] = np.where(X['co_borrower_application']==True, 1, 0)
+    except Exception:
+        X['co_borrower_application'] = 0
     # re add fico
     X['FicoRange'] = fico
     X = X.dropna()
@@ -177,3 +185,35 @@ def write_data_frame_for_analysis(df, use_dummy=True, data_path=None):
         file_path = os.path.join(data_path, 'real_data','analysis','analysis_df.csv')
     df.to_csv(file_path)
     return None
+
+def write_data_frame_for_analysis_(df, use_dummy=True, data_path=None, file_name='analysis_df.csv'):
+    if use_dummy:
+        file_path = os.path.join(data_path, 'dummy_data','analysis',file_name)
+    else:
+        file_path = os.path.join(data_path, 'real_data','analysis',file_name)
+    df.to_csv(file_path)
+    return None
+
+def scatter_plot(file_name, smote ,X, y):
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    df = pd.concat([pd.DataFrame(X),pd.DataFrame(y)], axis=1)
+    sns.scatterplot(0, 1, data=df, hue='bad_loan', palette="deep", alpha=.5)
+    plt.title(f'Scatter Plot of Bad Loan {smote}')
+    plt.xlabel('Scaled Amount Borrowed')
+    plt.ylabel('Scaled Interest Rate')
+    plt.savefig(os.path.join('results', 'output', file_name), dpi=150, bbox_inches='tight')
+    plt.close()
+    return 'Success'
+
+def bar_plot(file_name, smote,X, y):
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    df = pd.concat([pd.DataFrame(X),pd.DataFrame(y)], axis=1)
+    sns.countplot(x='bad_loan', data=df,  palette="deep")
+    plt.title(f'Bar Plot of Bad Loan Counts {smote} Applied')
+    plt.xlabel('Bad Loan Status')
+    plt.ylabel('Count')    
+    plt.savefig(os.path.join('results', 'output', file_name), dpi=150, bbox_inches='tight')
+    plt.close()
+    return 'Success'

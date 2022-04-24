@@ -58,6 +58,7 @@ def join_listings_and_loans(loan_df, listing_df):
     Merge the two datasets
     '''
     listing_df['amount_funded'] = listing_df['amount_funded'].astype('int64')
+    loan_df['amount_borrowed'] = loan_df['amount_borrowed'].astype('int64')
     loan_listing_df = pd.merge(loan_df, listing_df,  
         how='left', 
         left_on=['origination_date','amount_borrowed','borrower_rate','prosper_rating','term','co_borrower_application'],         

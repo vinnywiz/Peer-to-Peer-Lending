@@ -1,3 +1,10 @@
+- [Peer to Peer Lending ML application](#peer-to-peer-lending-ml-application)
+    - [How to get started:](#how-to-get-started)
+      - [Dummy Data](#dummy-data)
+      - [Dummy Data - Skip to Step 9](#dummy-data---skip-to-step-9)
+      - [Real Data](#real-data)
+      - [Results](#results)
+
 # Peer to Peer Lending ML application
 - The application is build using Prosper data
 - Due to restrictions of uploading actual Prosper data. The application is run using randomly regerated dummy data. 
