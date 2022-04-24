@@ -2,6 +2,8 @@
 # Capstone Project Team Falcon
 ***
 ![image](results/output/Prosper.png)
+
+Members: Zagdbazar Davaadorj, Osei Bonsu , Supriya Patwardhan, Vineeth Yeluru
 ## Peer-to-Peer-Lending: Predicting Bad Loans with Machine Learning
 
 ****
