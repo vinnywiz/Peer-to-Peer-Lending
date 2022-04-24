@@ -91,9 +91,13 @@ We use the Synthetic Minority Oversampling Technique (SMOTE), which is a widely 
 
 For our puposes we oversmapled the minority class to have 10% the number of examples of the majority class. We then used random undersampling to reduce the number of examples in the majority class to have 80% more than the minority class. Ratios are what works best for your data. We believe this ratio works best for us. As shown below we successfully generated a balanced dataset using smote.
 
-![image](results/output/Bar_Plot_Without_Smote.png)
+<div align="center">
+<img src="results/output/Bar_Plot_Without_Smote.png" alt="drawing" width="600" height="500"/>
+</div>
 
-![image](results/output/Bar_Plot_With_Smote.png)
+<div align="center">
+<img src="results/output/Bar_Plot_With_Smote.png" alt="drawing" width="600" height="500"/>
+</div>
 
 
 ### d.	Feature Engineering
