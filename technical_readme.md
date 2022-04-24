@@ -14,19 +14,20 @@
 2. Ensure python 3 is installed on you local machine with pip
 3. There are certain python packages that are necessary for the application to run. You can install through the below command in powershell.
 '''
-    cd Peer-to-Peer-Lending
-    pip install -r requirements.txt
+cd Peer-to-Peer-Lending
+pip install -r requirements.txt
 '''
 4. Run the below command to install the application packages
 ```shell
-    pip install -e .
+pip install -e .
+python
 ```
 #### Dummy Data 
 5. Dummy Data
 - By default the application is set to be run on dummy data. Run the below command to execute the application
 ```python
-    from p2p_lend.run_pipeline import run_pipeline
-    run_pipeline()
+from p2p_lend.run_pipeline import run_pipeline
+run_pipeline()
 ```
 #### Dummy Data - Skip to Step 9
 
@@ -64,12 +65,13 @@
 
 8. Run updated code.
 ```shell
-    pip install -e .
+pip install -e .
+python
 ```
 
 ```python
-    from p2p_lend.run_pipeline import run_pipeline
-    run_pipeline()
+from p2p_lend.run_pipeline import run_pipeline
+run_pipeline()
 ```
 
 #### Results

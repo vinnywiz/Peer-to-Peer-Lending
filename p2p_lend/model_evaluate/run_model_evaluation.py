@@ -99,7 +99,7 @@ def local_shap_plot(shap_values, id, output_path, y_actual, y_pred, model_type):
     return 'Success'
 
 def local_force_shap_plot(shap_values, id, output_path, y_actual, y_pred, model_type):
-    file_name = f'Bar_Plot_{model_type}_Local_Explanability_Listing_Id_{id}.png'
+    file_name = f'{model_type}_Bar_Plot_Local_Explanability_Listing_Id_{id}.png'
     shap.plots.bar(shap_values, show=False)
     plt.title(f'{model_type} Model Predicted Listing "{y_pred}". It is actually "{y_actual}"')
     plt.savefig(os.path.join(output_path, 'output', file_name), dpi=150, bbox_inches='tight')
