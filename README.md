@@ -26,11 +26,13 @@ Members: Zagdbazar Davaadorj, Osei Bonsu , Supriya Patwardhan, Vineeth Yeluru
     - [Random Forest](#random-forest)
     - [XGBoost Classifier](#xgboost-classifier)
 - [5.   Model Explainability (SHapley Additive exPlanations - SHAP)](#5---model-explainability-shapley-additive-explanations---shap)
-  - [Local Explainations](#local-explainations)
   - [Global Explanations and Feature Importance](#global-explanations-and-feature-importance)
     - [Bar Plot](#bar-plot)
     - [Summary Plot](#summary-plot)
     - [Beeswarm Plot](#beeswarm-plot)
+  - [Local Explainations](#local-explainations)
+    - [Bar plot](#bar-plot-1)
+    - [Waterfall plot](#waterfall-plot)
 - [6.	Conclusion, Future Work and Ethical concern](#6conclusion-future-work-and-ethical-concern)
 - [7.    Refrences](#7----refrences)
 
@@ -212,6 +214,7 @@ We can see that "Borrower Rate", "Fico Range" & "Amount Borrowed" are the most i
 ## Local Explainations
 Each observation gets its own set of SHAP values. We randomly chose 7 individual observations (see the individual SHAP value plot below). This greatly increases the transparency of our model predictions. We can explain why a case receives its prediction and the contributions of the predictors. Traditional variable importance algorithms only show the results across the entire population but not on each individual case. The local interpretability enables us to pinpoint and contrast the impacts of the factors.
 
+### Bar plot
 
 <div align="center"> 
 
