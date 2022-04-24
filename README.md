@@ -31,7 +31,7 @@ Members: Zagdbazar Davaadorj, Osei Bonsu , Supriya Patwardhan, Vineeth Yeluru
     - [Bar Plot](#bar-plot)
     - [Summary Plot](#summary-plot)
     - [Beeswarm Plot](#beeswarm-plot)
-- [6.	Conclusion and Future Work](#6conclusion-and-future-work)
+- [6.	Conclusion, Future Work and Ethical concern](#6conclusion-and-future-work)
 - [7.    Refrences](#7----refrences)
 
 
@@ -53,7 +53,7 @@ We use two separate datasets from [Prosper Marketplace, Inc](https://www.prosper
 
 The second data is the loan data. The loan data includes actual loan information about applicants whose listings are approved and who received a loan from the Prosper Lending platform. In addition, the loan data has information about loan characteristics such as loan interest rate, loan amount, loan maturities, principal payments, balance, etc. 
 
-The loan data include our target feature, the loan status column. This column contains information that signifies if a loan is a bad loan (defaulted) or not a bad loan (completed). Some of the features in the listings and loan data are only relevant after loan issuance and are therefore not available to investors at the time of investing. We used the [Prosper Data Dictionary](https://www.prosper.com/Downloads/Services/Documentation/ProsperDataExport_Details.html) to better understand the features available to investors before a loan issuance.
+The loan data include our target feature, the Loan Status column. This column contains information that signifies if a loan is a bad loan (Defaulted, Charge-off & Cancelled) or not a bad loan (Current & Completed). Some of the features in the listings and loan data are only relevant after loan issuance and are therefore not available to investors at the time of investing. We used the [Prosper Data Dictionary](https://www.prosper.com/Downloads/Services/Documentation/ProsperDataExport_Details.html) to better understand the features available to investors before a loan issuance.
 
 # 3.	Methodology 
 
@@ -238,7 +238,7 @@ We can see that "borrower_rate" is the most important feature on average, and th
 ![image](results/output/global_bee_plot.png)
 
 
-# 6.	Conclusion and Future Work and Ethical concern 
+# 6.	Conclusion, Future Work and Ethical concern 
 Predicting the occurrences of bad loans in a peer-to-peer lending platform is crucial and challenging task. More accurate prediction models would be highly beneficial since the failure of a peer-to-peer lending platform could trigger a series of financial risks. Our project shows that machine learning methods have broad application prospects in the prediction of P2P loan default.
 
 The performance has only improved slightly through the modeling process but we have removed attributes that could lead to leakage and getting performance that does capture over 60% of the bad loans. There is additional scope for hyperparameter tuning that would allow the model to better classify the loan. 
@@ -247,7 +247,7 @@ For future work, we would want to deploy our model and have a real-time machine 
 
 Futhermore, we plan to develop a dashboard to help investors to examine listing applications more in-depth. With the dashboard, it would work as a support info along with current FICO score and other indicators. 
 
-For our project analysis, we do not disclose any individual information about loan applicants in our visualization and outcomes. We carefully consider that our mode would not discriminate loan applications based on racial, ethnicity group identifications. We have chosen features that can be generalized to produce our outcome. 
+For our project analysis, we do not disclose any individual information about loan applicants in our visualization and outcomes. We carefully consider that our model would not discriminate loan applications based on racial, ethnicity group identifications. We have chosen features that can be generalized to produce our outcome. 
 
 # 7.    Refrences 
 Xu, J., Lu, Z. & Xie, Y. Loan default prediction of Chinese P2P market: a machine learning methodology. Sci Rep 11, 18759 (2021). https://doi.org/10.1038/s41598-021-98361-6
