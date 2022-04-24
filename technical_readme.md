@@ -14,11 +14,15 @@
 
 ## Application Design
 - **ETL Process**
+  
 ![image](results/Design/etl.jpg)
 - **Model Building**
+  
 ![image](results/Design/buildModel.jpg)
 - **Model Evaluation**
+  
 ![image](results/Design/buildEvaluate.jpg)
+
 ## How to get started:
 - Download the code repository
 - Ensure python 3 is installed on you local machine with pip
