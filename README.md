@@ -75,7 +75,7 @@ We treated the missing values in all remaining features one by one;
 - For categorical variables: imputation using mode 
 
 ### b. Data Exploration
-We created several exploratory data analysis plots using seaborn and plotly's Python library in order to build high-level intuition of some of the relationships between different features.
+We created several exploratory data analysis plots using seaborn and matplotlib Python libraries in order to build high-level intuition of some of the relationships between different features.
 
 A plot of distribution of borrowed amount by loan term
 
