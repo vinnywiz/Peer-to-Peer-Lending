@@ -59,11 +59,11 @@ The loan data include our target feature, the Loan Status column. This column co
 ![image](results/Design/etl.jpg)
 
 ### a.	Data Preprocessing 
-To begin, we executed a simple exploratory analysis using the data dictionary to find unique key identifiers to merge the listings and loans data. Both datasets have their unique key identifiers; however, there is no direct connection between the unique identifiers. We decided to merge the two datasets with 6 common variables **(loan_origination_date, amount_borrowed, borrower_rate, prosper_rating, term, and co_borrower_application)**. We kept only uniquely merged rows as there might be two same borrowers who requested the same amount of loan and received the same loan interest and maturity. We filtered the data to only include loans from 2015 to 2021. After merging, we had more than 80% unique matches between the two sources.
+To begin, we executed a simple exploratory analysis using the data dictionary to find unique key identifiers to merge the listings and loans data. Both datasets have their unique key identifiers; however, there is no direct connection between the unique identifiers. We decided to merge the two datasets with 6 common variables **(loan_origination_date, amount_borrowed, borrower_rate, prosper_rating, term, and co_borrower_application)**. We kept only uniquely merged rows as there might be two same borrowers who requested the same amount of loan and received the same loan interest and maturity. We filtered the data to only include loans from 2015 to 2021. After merging, we had more than 80% unique matches between the two sources. 
 
  Other features in the loans and listing data was dropped based on these conditions;
   - features with >50% of missing data 
-  - features that would introduce data leakage (eg age_in_months)
+  - features that would introduce data leakage. (eg age_in_months, principal paid or interest paid)
   - features unavailable until loan issuance (eg days_past_due, late_fees_paid)
   - features that include only one value (eg scorex).
 
@@ -87,9 +87,10 @@ Listings with bad loan Status using a scatterplot. In yellow it shows the custom
 
 ![image](results/output/Scatter_Plot_Without_Smote.png)
 
-We can see that a small percentage of customers are defaulting. This is a typical imbalanced dataset where the default rate is much lower than the successfully completed rate. Therefore, machine learning algorithms applied to imbalanced classification datasets can produce biased predictions with misleading accuracies. We will use the SMOTE library to try to mitigate this problem.
+We can see that a small percentage of customers with bad loans. This is a typical imbalanced dataset where the default rate is much lower than successfully fulfilling their loan obligations. Therefore, machine learning algorithms applied to imbalanced classification datasets can produce biased predictions with misleading accuracies. We will use the SMOTE library to try to mitigate this problem.
 
-To avoid multicollinearity in the data, both numeric and categorical variables exhibiting high degrees of multicollinearity >0.85 were dropped from the dataset
+To avoid multicollinearity in the data, both numeric and categorical variables exhibiting high degrees of multicollinearity >0.85 were dropped from the dataset. The correlation matrix is displayed below.
+- For example Borrower Rate is highly correlated with Estimated Return, Estimated Loss Rate, Lender Yield & Effective Yeild. We chose to include the Borrower Rate and excluded the other variables that are hihly correlated. 
 
 ![image](results/correlation_matrix_numbers.png)
 
