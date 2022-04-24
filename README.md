@@ -1,7 +1,10 @@
+
 # Capstone Project Team Falcon
+***
+![image](results/output/Prosper.png)
+## Peer-to-Peer-Lending: Predicting Bad Loans with Machine Learning
 
-# Peer-to-Peer-Lending: Predicting Bad Loans with Machine Learning
-
+****
 ## Table of Contents
 <!-- no toc -->
 - [1.	Introduction](#1introduction)
@@ -33,29 +36,39 @@ Peer-to-peer lending is an innovative FinTech product that disrupts the entire b
 ### b. Audience and Motivation 
 Even though peer-to-peer lending platforms give tremendous opportunities to both parties, the solution itself has its own drawbacks. The professional due diligence work is on investors' shoulders.  Not all investors have the professional knowledge like banks to distinguish good borrowers from bad borrowers. Investors are regular people who want to earn a high return on their loans.  If they invest in a bad loan, they would lose their money.  
 
-Prosper Lending enables investors to browse consumer loan applications containing the applicants loan details, credit history, etc in order to make determinations as to which loans to fund. Loans from applicants deemed at higher risk of default, such as those with lower FICO scores, will typically carry higher interest rates and therefore the potential to yield a higher return on investment for the investor. Alternatively, lower risk of default loans will usually carry lower interest rates. Therefore, a Machine Learning model that could accurately predict the default risk of a loan using the available data on Prosper Lending could help investors maximize their investment returns by identifying the loans worth investing. 
-Prosper Lending enables investors to browse consumer loan applications containing the applicants loan details, credit history, etc in order to make determinations as to which loans to fund. Loans from applicants deemed at higher risk of default, such as those with lower FICO scores, will typically carry higher interest rates and therefore the potential to yield a higher return on investment for the investor. Alternatively, lower risk of default loans will usually carry lower interest rates. Therefore, a Machine Learning model that could accurately predict the default risk of a loan using the available data on Prosper Lending could help investors maximize their investment returns by identifying the loans worth investing. Additionally, it would give opportunities to diversify portfolio of investors with high returns with high risks and low risks with low returns. 
+Prosper Lending enables investors to browse consumer loan applications containing the applicants loan details, credit history, etc in order to make determinations as to which loans to fund. Loans from applicants deemed at higher risk of default, such as those with lower FICO scores, will typically carry higher interest rates and therefore the potential to yield a higher return on investment for the investor. 
+
+Alternatively, lower risk of default loans will usually carry lower interest rates. Therefore, a Machine Learning model that could accurately predict a bad loan (default risk of a loan) using the available data on Prosper Lending could help investors maximize their investment returns by identifying the loans worth investing. 
+
+ Additionally, it would give opportunities to diversify portfolio of investors with high returns with high risks and low risks with low returns. 
 
 # 2.	Data Acquisition 
 ### a. Data source
 For our initial datasets, we use two separate datasets from [Prosper Marketplace, Inc](https://www.prosper.com). The first data is the Listing data.  The listing data includes information about all applicants. It includes personal features that can estimate the credit quality of borrowers. The are 886 qualitative and quantitative features per customer. 
 
-The second data is the loan data.  The loan data includes actual loan information about applicants whose listings are approved and who received a loan from the peer-to-peer platform. The loan data has information about loan characteristics such as loan interest rate, loan amount, loan maturities, principal payments, balance, etc. Additionally, the loan data include the loan status if the loan is a bad loan (defaulted) or not. Some of these features in the data are only relevant after loan issuance and therefore not available to investors at the time of investing. We used the [Prosper Data Dictionary](https://www.prosper.com/Downloads/Services/Documentation/ProsperDataExport_Details.html) to better undertsnad the features available to investors.
+The second data is the loan data.  The loan data includes actual loan information about applicants whose listings are approved and who received a loan from the Prosper Lending platform. The loan data has information about loan characteristics such as loan interest rate, loan amount, loan maturities, principal payments, balance, etc. 
+
+Additionally, the loan data include our target feature, the loan status column. This column contains information that signifies if a loan is a bad loan (defaulted) or not a bad loan (completed). Some features in the listings and loan data are only relevant after loan issuance and are therefore not available to investors at the time of investing. We used the [Prosper Data Dictionary](https://www.prosper.com/Downloads/Services/Documentation/ProsperDataExport_Details.html) to better understand the features available to investors prior to a loan issuance.
 
 # 3.	Methodology 
 ### a.	Data Preprocessing 
-To begin, we executed a simple exploratory analysis using the data dictionary to find unique key identifiers to merge the data. Both datasets have their unique key identifiers however, there is no direct connection between the unique identifiers. We decided to merge the two datasets with 6 common variables *(loan_origination_date, amount_borrowed, borrower_rate, prosper_rating, term, and co_borrower_application)*. We kept only uniquely merged rows as there might be two same borrowers who requested the same amount of loan and received the same loan interest and maturity. After merging we had more that 80% unique rows.
+To begin, we executed a simple exploratory analysis using the data dictionary to find unique key identifiers to merge the listings and loans data. Both datasets have their unique key identifiers however, there is no direct connection between the unique identifiers. We decided to merge the two datasets with 6 common variables **(loan_origination_date, amount_borrowed, borrower_rate, prosper_rating, term, and co_borrower_application)**. We kept only uniquely merged rows as there might be two same borrowers who requested the same amount of loan and received the same loan interest and maturity. We filtered the data to only include loans from 2015 - 2021. After merging we had more that 80% unique rows.
 
- Some features in the data was dropped some based on these conditions;
+ Some of features in the data was dropped some based on these conditions;
   - variables with >50% of missing data 
   - variables that would introduce data leakage (eg age_in_months)
   - variables unavailable until loan issuance (eg days_past_due, late_fees_paid)
-  - variables that include only one feature (eg scorex)
+  - variables that include only one feature (eg scorex).
 
-How we replaced null values in other variables like stated_montly_income, monthly_payment, etc can be found in our code. After all this our dataframe had shape of (62673, 28) 
+
+  *Missing Value Imputation*
+
+We treated the missing values in all remaining features one by one;
+- For numerical variables: imputation using mean or median
+- For categorical variables: imputation using mode 
 
 ### b. Data Exploration
-We created several exploratory data analysis plots using seaborn and plotly's Python library in order to build high-level intuition of some of the relationships between different variables.
+We created several exploratory data analysis plots using seaborn and plotly's Python library in order to build high-level intuition of some of the relationships between different features.
 
 A plot of distribution of borrowed amount by loan term
 (*** add image)
@@ -76,7 +89,6 @@ For our puposes we oversmapled the minority class to have 10% the number of exam
 
 Visualizing the imbalanced data
 
-![image](https://user-images.githubusercontent.com/86815494/164077567-3fcfddd5-946a-421a-b243-3df151d6571b.png)
 
 ### d.	Feature Engineering
 We created two new features EMI (Equated Monthly Installment) and Balance_Income.
