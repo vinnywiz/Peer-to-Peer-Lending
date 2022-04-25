@@ -182,7 +182,7 @@ The XGBoost model reported an accuracy of 70% (best performing model out of the 
 We used the SHAP Python package to interpret our model. SHAP is an increasingly popular method used for interpretable machine learning. SHAP assigns each feature an importance value for a particular prediction. SHAP builds model explanations by asking the same question for every prediction and feature: "How does prediction *i* change when feature *j* is removed from the model?" So-called SHAP values are the answers. They quantify the magnitude and direction (positive or negative) of a feature’s effect on a prediction. It is important to point out that the SHAP values do not provide causality.
 
 ## Global Explanations and Feature Importance
-We put local explanations described above together to get a **global explanation**. And because of the axiomatic assumptions of SHAP, global SHAP explanations can be more reliable than other measures. The collective SHAP values can show how much each predictor contributes, either positively or negatively, to the target variable. This is like the variable importance plot but it is able to show the positive or negative relationship for each variable with the target.
+**Global explanation** show average feature importance and because of the axiomatic assumptions of SHAP, global SHAP explanations can be more reliable than other measures such as LIME. The collective SHAP values can show how much each predictor contributes, either positively or negatively, to the target variable. This is like the variable importance plot but it is able to show the positive or negative relationship for each variable with the target.
 
 ### Bar Plot
 Here the features are ordered from the highest to the lowest effect on the prediction.
