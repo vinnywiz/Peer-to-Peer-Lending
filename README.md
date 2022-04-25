@@ -4,6 +4,7 @@
 ![image](results/output/Prosper.png)
 
 Members: Zagdbazar Davaadorj, Osei Bonsu , Supriya Patwardhan, Vineeth Yeluru
+"All team members contributed to all aspects of the project”
 ## Peer-to-Peer-Lending: Predicting Bad Loans with Machine Learning
 
 ****
