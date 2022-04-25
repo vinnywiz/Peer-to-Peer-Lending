@@ -195,7 +195,7 @@ It takes into account the absolute SHAP value, so it does not matter if the feat
 Here, we notice that borrower_rate and FicoRange contributes more to the overall model and thus have high predictive power.
 
 ### Summary Plot
-The SHAP value  Summary plot can further show the positive and negative relationships of the predictors with the target variable. This plot is made of all the dots in the train data. It demonstrates the following information:
+The SHAP value  Summary plot can further show the positive and negative relationships of the predictors with the target variable. This plot is made of all the dots in the test data. It demonstrates the following information:
 
  - Feature importance: Variables are ranked in descending order
  - Impact: The horizontal location shows whether the effect of that value is associated with a higher or lower prediction.
